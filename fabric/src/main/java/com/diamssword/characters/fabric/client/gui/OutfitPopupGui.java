@@ -6,7 +6,7 @@ import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.TextAreaComponent;
-import io.wispforest.owo.ui.container.FlowLayout;
+import com.diamssword.characters.owo.ui.FlowLayout;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
