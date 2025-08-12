@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "com.diamssword.characters.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+    "EntityRenderDispatcherAccessor",
+    "LivingRendererAccessor",
+    "PlayerListEntryMixin",
+    "PlayerRenderMixin",
+    "PlayerSkinProviderAccessor"
+  ],
+  "mixins": [
+    "PlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

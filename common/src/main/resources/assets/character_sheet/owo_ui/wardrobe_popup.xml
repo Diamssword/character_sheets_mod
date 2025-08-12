@@ -1,0 +1,47 @@
+<owo-ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.20/owo-ui.xsd">
+    <components>
+        <flow-layout direction="horizontal" >
+            <children>
+                <flow-layout direction="vertical" >
+                    <children>
+                        <label>
+                            <text>Nommez la tenue</text>
+                        </label>
+                       <text-area id="text">
+                           <sizing><horizontal method="fill">50</horizontal><vertical method="fixed">20</vertical></sizing>
+                           <horizontal-alignment>center</horizontal-alignment>
+                       </text-area>
+                        <flow-layout direction="horizontal" >
+                            <children>
+                                <rbutton id="button">
+                                    <text>Enregistrer</text>
+                                </rbutton>
+
+                                <rbutton id="cancel">
+                                    <text>Anuler</text>
+                                    <margins><left>10</left></margins>
+                                </rbutton>
+                            </children>
+                            <padding><left>10</left><top>5</top></padding>
+                            <sizing><horizontal method="fill">50</horizontal></sizing>
+                        </flow-layout>
+
+                    </children>
+                    <surface>
+                      <gpanel/>
+                    </surface>
+                    <padding><all>10</all></padding>
+                </flow-layout>
+
+            </children>
+            <surface>
+                <flat>#75384239</flat>
+                <vanilla-translucent/>
+            </surface>
+            <sizing><vertical method="fill">100</vertical><horizontal method="fill">100</horizontal></sizing>
+            <vertical-alignment>center</vertical-alignment>
+            <horizontal-alignment>center</horizontal-alignment>
+        </flow-layout>
+    </components>
+</owo-ui>

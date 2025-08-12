@@ -1,0 +1,233 @@
+<owo-ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/wisp-forest/owo-lib/1.20/owo-ui.xsd">
+    <components>
+        <flow-layout direction="horizontal">
+            <children>
+                <flow-layout direction="vertical">
+                    <children>
+                        <label>
+                            <horizontal-text-alignment>center</horizontal-text-alignment>
+                            <margins>
+                                <top>4</top>
+                            </margins>
+                            <text>Tenues</text>
+                            <sizing>
+                                <horizontal method="fill">90</horizontal>
+                            </sizing>
+                        </label>
+                        <separator>
+                            <sizing>
+                                <vertical method="fill">4</vertical>
+                                <horizontal method="fill">100</horizontal>
+                            </sizing>
+                            <margins>
+                                <all>1</all>
+                            </margins>
+                        </separator>
+                        <rbutton id="memory1">
+                            <text>1</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory2">
+                            <text>2</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory3">
+                            <text>3</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory4">
+                            <text>4</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory5">
+                            <text>5</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory6">
+                            <text>6</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                        <rbutton id="memory7">
+                            <text>7</text>
+                            <margins>
+                                <left>2</left>
+                                <top>5</top>
+                            </margins>
+                            <sizing>
+                                <vertical method="fill">10</vertical>
+                                <horizontal method="fill">94</horizontal>
+                            </sizing>
+                        </rbutton>
+                    </children>
+                    <surface>
+                        <panel/>
+                    </surface>
+                    <sizing>
+                        <vertical method="fill">80</vertical>
+                        <horizontal method="fill">10</horizontal>
+                    </sizing>
+                </flow-layout>
+                <flow-layout direction="horizontal" id="ndLayout">
+                    <children>
+                        <flow-layout direction="vertical">
+                            <children>
+                                <player id="player">
+                                    <look-at-cursor>true</look-at-cursor>
+                                    <scale-to-fit>true</scale-to-fit>
+                                    <sizing>
+                                        <horizontal method="fill">100</horizontal>
+                                        <vertical method="fill">90</vertical>
+                                    </sizing>
+                                </player>
+                                <slim-slider direction="horizontal" id="slider">
+                                    <margins>
+                                        <left>5</left>
+                                    </margins>
+                                    <sizing>
+                                        <horizontal method="fill">90</horizontal>
+                                        <vertical method="fill">10</vertical>
+                                    </sizing>
+                                </slim-slider>
+                            </children>
+                            <sizing>
+                                <horizontal method="fill">70</horizontal>
+                                <vertical method="fill">80</vertical>
+                            </sizing>
+                        </flow-layout>
+                        <freerowgrid columns="2" id="layerLayout">
+                            <children/>
+                            <padding>1</padding>
+                        </freerowgrid>
+                    </children>
+                    <margins>
+                        <horizontal>4</horizontal>
+                    </margins>
+                    <vertical-alignment>center</vertical-alignment>
+                    <sizing>
+                        <vertical method="fill">85</vertical>
+                        <horizontal method="fill">35</horizontal>
+                    </sizing>
+                </flow-layout>
+                <flow-layout direction="vertical">
+                    <children>
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <label id="title_right">
+                                    <text>Vetements</text>
+                                    <sizing>
+                                        <horizontal method="fill">75</horizontal>
+                                    </sizing>
+                                </label>
+                            </children>
+                            <margins>
+                                <bottom>1</bottom>
+                            </margins>
+                        </flow-layout>
+                        <separator>
+                            <sizing>
+                                <vertical method="fill">4</vertical>
+                                <horizontal method="fill">100</horizontal>
+                            </sizing>
+                            <margins>
+                                <bottom>1</bottom>
+                            </margins>
+                        </separator>
+                        <flow-layout direction="horizontal">
+                            <children>
+                                <text-box id="search">
+                                    <active>true</active>
+                                    <show-background>false</show-background>
+                                    <sizing>
+                                        <horizontal method="fill">100</horizontal>
+                                    </sizing>
+                                </text-box>
+                            </children>
+                            <margins>
+                                <bottom>2</bottom>
+                            </margins>
+                            <surface>
+                                <flat>#606560</flat>
+                                <outline>#414941</outline>
+                            </surface>
+
+                        </flow-layout>
+
+                        <scroll direction="vertical">
+                            <freerowgrid columns="6" id="clothContainer">
+                                <children/>
+                                <padding>1</padding>
+                            </freerowgrid>
+                            <sizing>
+                                <vertical method="fill">80</vertical>
+                                <horizontal method="fill">100</horizontal>
+                            </sizing>
+                        </scroll>
+                    </children>
+                    <padding>
+                        <all>4</all>
+                    </padding>
+                    <surface>
+                        <panel/>
+                    </surface>
+                    <sizing>
+                        <vertical method="fill">80</vertical>
+                        <horizontal method="fixed">205</horizontal>
+                    </sizing>
+                </flow-layout>
+            </children>
+            <surface>
+                <flat>#75384239</flat>
+                <vanilla-translucent/>
+            </surface>
+            <sizing>
+                <vertical method="fill">100</vertical>
+                <horizontal method="fill">100</horizontal>
+            </sizing>
+            <vertical-alignment>center</vertical-alignment>
+            <horizontal-alignment>center</horizontal-alignment>
+        </flow-layout>
+    </components>
+</owo-ui>

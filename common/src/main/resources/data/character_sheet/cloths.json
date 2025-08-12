@@ -1,0 +1,427 @@
+[
+	{
+      "id": "yellow_hasmat_suit",
+      "layer": "full",
+      "name": "yellow hasmat suit"
+   },
+   {
+      "id": "corde_bandouliere_torse",
+      "layer": "accessories",
+      "name": "Corde Bandouliere Torse"
+   },
+   {
+      "id": "beret_militaire_neuf_bleu",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Bleu"
+   },
+   {
+      "id": "beret_militaire_neuf_jaune",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Jaune"
+   },
+   {
+      "id": "beret_militaire_neuf_marron",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Marron"
+   },
+   {
+      "id": "beret_militaire_neuf_noir",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Noir"
+   },
+   {
+      "id": "beret_militaire_neuf_rose",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Rose"
+   },
+   {
+      "id": "beret_militaire_neuf_rouge",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Rouge"
+   },
+   {
+      "id": "beret_militaire_neuf_vert",
+      "layer": "hat",
+      "name": "Beret Militaire Neuf Vert"
+   },
+   {
+      "id": "beret_militaire_taches_bleu",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Bleu"
+   },
+   {
+      "id": "beret_militaire_taches_jaune",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Jaune"
+   },
+   {
+      "id": "beret_militaire_taches_marron",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Marron"
+   },
+   {
+      "id": "beret_militaire_taches_noir",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Noir"
+   },
+   {
+      "id": "beret_militaire_taches_rose",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Rose"
+   },
+   {
+      "id": "beret_militaire_taches_rouge",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Rouge"
+   },
+   {
+      "id": "beret_militaire_taches_vert",
+      "layer": "hat",
+      "name": "Beret Militaire Taches Vert"
+   },
+   {
+      "id": "chemise_carreau_tombant_bleu",
+      "layer": "jacket",
+      "name": "Chemise Carreau Tombant Bleu"
+   },
+   {
+      "id": "chemise_carreau_tombant_gris",
+      "layer": "jacket",
+      "name": "Chemise Carreau Tombant Gris"
+   },
+   {
+      "id": "chemise_carreau_tombant_marron",
+      "layer": "jacket",
+      "name": "Chemise Carreau Tombant Marron"
+   },
+   {
+      "id": "chemise_carreau_tombant_vert",
+      "layer": "jacket",
+      "name": "Chemise Carreau Tombant Vert"
+   },
+   {
+      "id": "chemise_carreau_tombant_violet",
+      "layer": "jacket",
+      "name": "Chemise Carreau Tombant Violet"
+   },
+   {
+      "id": "loque_dechire_court_blanc",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Blanc"
+   },
+   {
+      "id": "loque_dechire_court_bleu",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Bleu"
+   },
+   {
+      "id": "loque_dechire_court_gris",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Gris"
+   },
+   {
+      "id": "loque_dechire_court_noir",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Noir"
+   },
+   {
+      "id": "loque_dechire_court_orange",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Orange"
+   },
+   {
+      "id": "loque_dechire_court_rouge",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Rouge"
+   },
+   {
+      "id": "loque_dechire_court_vert",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Vert"
+   },
+   {
+      "id": "loque_dechire_court_violet",
+      "layer": "jacket",
+      "name": "Loque Dechire Court Violet"
+   },
+   {
+      "id": "veston_dechire_bleu",
+      "layer": "jacket",
+      "name": "Veston Dechire Bleu"
+   },
+   {
+      "id": "veston_dechire_noir",
+      "layer": "jacket",
+      "name": "Veston Dechire Noir"
+   },
+   {
+      "id": "veston_dechire_vert",
+      "layer": "jacket",
+      "name": "Veston Dechire Vert"
+   },
+   {
+      "id": "veston_dechire_violet",
+      "layer": "jacket",
+      "name": "Veston Dechire Violet"
+   },
+   {
+      "id": "veston_neuf_bleu",
+      "layer": "jacket",
+      "name": "Veston Neuf Bleu"
+   },
+   {
+      "id": "veston_neuf_noir",
+      "layer": "jacket",
+      "name": "Veston Neuf Noir"
+   },
+   {
+      "id": "veston_neuf_vert",
+      "layer": "jacket",
+      "name": "Veston Neuf Vert"
+   },
+   {
+      "id": "veston_neuf_violet",
+      "layer": "jacket",
+      "name": "Veston Neuf Violet"
+   },
+   {
+      "id": "baggy_neuf_bas_bleu",
+      "layer": "pants",
+      "name": "Baggy Neuf Bas Bleu"
+   },
+   {
+      "id": "baggy_neuf_bas_marron",
+      "layer": "pants",
+      "name": "Baggy Neuf Bas Marron"
+   },
+   {
+      "id": "baggy_neuf_bas_noir",
+      "layer": "pants",
+      "name": "Baggy Neuf Bas Noir"
+   },
+   {
+      "id": "baggy_neuf_bas_vert",
+      "layer": "pants",
+      "name": "Baggy Neuf Bas Vert"
+   },
+   {
+      "id": "baggy_neuf_bas_violet",
+      "layer": "pants",
+      "name": "Baggy Neuf Bas Violet"
+   },
+   {
+      "id": "baggy_troue_bas_bleu",
+      "layer": "pants",
+      "name": "Baggy Troue Bas Bleu"
+   },
+   {
+      "id": "baggy_troue_bas_marron",
+      "layer": "pants",
+      "name": "Baggy Troue Bas Marron"
+   },
+   {
+      "id": "baggy_troue_bas_noir",
+      "layer": "pants",
+      "name": "Baggy Troue Bas Noir"
+   },
+   {
+      "id": "baggy_troue_bas_vert",
+      "layer": "pants",
+      "name": "Baggy Troue Bas Vert"
+   },
+   {
+      "id": "baggy_troue_bas_violet",
+      "layer": "pants",
+      "name": "Baggy Troue Bas Violet"
+   },
+   {
+      "id": "jean_recoussue_marron",
+      "layer": "pants",
+      "name": "Jean Recoussue Marron"
+   },
+   {
+      "id": "jean_recoussue_noir",
+      "layer": "pants",
+      "name": "Jean Recoussue Noir"
+   },
+   {
+      "id": "jean_recoussue_rose",
+      "layer": "pants",
+      "name": "Jean Recoussue Rose"
+   },
+   {
+      "id": "jean_recoussue_vert",
+      "layer": "pants",
+      "name": "Jean Recoussue Vert"
+   },
+   {
+      "id": "jean_troue_marron",
+      "layer": "pants",
+      "name": "Jean Troue Marron"
+   },
+   {
+      "id": "jean_troue_noir",
+      "layer": "pants",
+      "name": "Jean Troue Noir"
+   },
+   {
+      "id": "jean_troue_rose",
+      "layer": "pants",
+      "name": "Jean Troue Rose"
+   },
+   {
+      "id": "jean_troue_vert",
+      "layer": "pants",
+      "name": "Jean Troue Vert"
+   },
+   {
+      "id": "basket_basse_longues_pair_noir",
+      "layer": "shoes",
+      "name": "Basket Basse Longues Pair Noir"
+   },
+   {
+      "id": "basket_basse_longues_seul_noir",
+      "layer": "shoes",
+      "name": "Basket Basse Longues Seul Noir"
+   },
+   {
+      "id": "bottes_cloutees_pair_noir",
+      "layer": "shoes",
+      "name": "Bottes Cloutees Pair Noir"
+   },
+   {
+      "id": "bottes_cloutees_seul_noir",
+      "layer": "shoes",
+      "name": "Bottes Cloutees Seul Noir"
+   },
+   {
+      "id": "chaussures_sandales_pair",
+      "layer": "shoes",
+      "name": "Chaussures Sandales Pair"
+   },
+   {
+      "id": "chaussures_sandales_seul",
+      "layer": "shoes",
+      "name": "Chaussures Sandales Seul"
+   },
+   {
+      "id": "mocassins_pair_marron",
+      "layer": "shoes",
+      "name": "Mocassins Pair Marron"
+   },
+   {
+      "id": "mocassins_seul_marron",
+      "layer": "shoes",
+      "name": "Mocassins Seul Marron"
+   },
+   {
+      "id": "haut_manches_longues_neuf_beige",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Beige"
+   },
+   {
+      "id": "haut_manches_longues_neuf_bleu",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Bleu"
+   },
+   {
+      "id": "haut_manches_longues_neuf_bleu_clair",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Bleu Clair"
+   },
+   {
+      "id": "haut_manches_longues_neuf_gris",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Gris"
+   },
+   {
+      "id": "haut_manches_longues_neuf_jaune",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Jaune"
+   },
+   {
+      "id": "haut_manches_longues_neuf_noir",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Noir"
+   },
+   {
+      "id": "haut_manches_longues_neuf_orange",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Orange"
+   },
+   {
+      "id": "haut_manches_longues_neuf_rose",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Rose"
+   },
+   {
+      "id": "haut_manches_longues_neuf_rouge",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Rouge"
+   },
+   {
+      "id": "haut_manches_longues_neuf_vert",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Vert"
+   },
+   {
+      "id": "haut_manches_longues_neuf_violet",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Neuf Violet"
+   },
+   {
+      "id": "haut_manches_longues_troue_beige",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Beige"
+   },
+   {
+      "id": "haut_manches_longues_troue_bleu",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Bleu"
+   },
+   {
+      "id": "haut_manches_longues_troue_bleu_clair",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Bleu Clair"
+   },
+   {
+      "id": "haut_manches_longues_troue_gris",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Gris"
+   },
+   {
+      "id": "haut_manches_longues_troue_jaune",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Jaune"
+   },
+   {
+      "id": "haut_manches_longues_troue_noir",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Noir"
+   },
+   {
+      "id": "haut_manches_longues_troue_orange",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Orange"
+   },
+   {
+      "id": "haut_manches_longues_troue_rose",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Rose"
+   },
+   {
+      "id": "haut_manches_longues_troue_rouge",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Rouge"
+   },
+   {
+      "id": "haut_manches_longues_troue_vert",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Vert"
+   },
+   {
+      "id": "haut_manches_longues_troue_violet",
+      "layer": "teeshirt",
+      "name": "Haut Manches Longues Troue Violet"
+   }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "hat",
+    "layer1": "27",
+    "layer2": "32",
+    "displayMode" : 1
+  },
+  {
+    "id": "hair",
+    "layer1": "14",
+    "layer2": "19"
+  },
+  {
+    "id": "beard",
+    "layer1": "11",
+    "layer2": "12"
+  },
+  {
+    "id": "glasses",
+    "layer1": "13",
+    "layer2": "20",
+    "displayMode" : 1
+  },
+  {
+    "id": "accessories",
+    "layer1": "15",
+    "layer2": "16",
+    "displayMode" : 1
+  },
+  {
+    "id": "jacket",
+    "layer1": "9",
+    "layer2": "10"
+  },
+  {
+    "id": "teeshirt",
+    "layer1": "4",
+    "layer2": "5"
+  },
+  {
+    "id": "underwear",
+    "layer1": "2"
+  },
+  {
+    "id": "pants",
+    "layer1": "3",
+    "layer2": "6"
+  },
+  {
+    "id": "shoes",
+    "layer1": "7",
+    "layer2": "8",
+    "displayMode" : 2
+  },
+  {
+    "id": "full",
+    "layer1": "21",
+    "layer2": "26"
+  },
+  {
+    "id": "body",
+    "layer1": "0",
+    "layer2": "1"
+  }
+]
