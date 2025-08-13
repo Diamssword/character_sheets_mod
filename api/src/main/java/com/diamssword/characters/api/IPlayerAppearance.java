@@ -1,6 +1,7 @@
 package com.diamssword.characters.api;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface IPlayerAppearance {
+public interface IPlayerAppearance extends ICharacterStored{
 
 
 	/**
@@ -83,4 +84,14 @@ public interface IPlayerAppearance {
 	 * return a float value scaling the base player height of ~1.8 blocks so a scale of 0.5 would make the player 0.9 blocks tall!
 	 */
 	public float getHeightScale();
+
+	public void readFromNbt(NbtCompound tag);
+
+	/**
+	 *
+	 * @param tag
+	 * @param mode 0==write for server side storage, 1==write to send to all tracking client, 2== write to send to owner client only
+	 * @return
+	 */
+	public NbtCompound writeToNbt(NbtCompound tag, int mode);
 }

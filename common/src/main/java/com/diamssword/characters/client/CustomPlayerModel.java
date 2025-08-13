@@ -1,20 +1,13 @@
 package com.diamssword.characters.client;
 
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.render.entity.model.EntityModels;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class CustomPlayerModel {
 

@@ -1,7 +1,7 @@
 package com.diamssword.characters.fabric.client.gui;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.ClothingLoader;
+import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.api.Cloth;
 import com.diamssword.characters.api.LayerDef;
 import com.diamssword.characters.fabric.client.gui.components.ClothButtonComponent;
@@ -10,7 +10,7 @@ import com.diamssword.characters.fabric.client.gui.components.PlayerComponent;
 import com.diamssword.characters.fabric.client.gui.components.RButtonComponent;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.LabelComponent;
 import io.wispforest.owo.ui.component.SlimSliderComponent;

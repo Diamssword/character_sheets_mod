@@ -1,7 +1,7 @@
 package com.diamssword.characters.network;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.ClothingLoader;
+import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
 import com.diamssword.characters.network.packets.DictionaryPackets;
 import com.diamssword.characters.network.owoNetwork.OwoNetChannel;

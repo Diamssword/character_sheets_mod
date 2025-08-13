@@ -1,20 +1,13 @@
 package com.diamssword.characters.fabric;
 
-import com.diamssword.characters.PlayerCharacters;
-import com.diamssword.characters.http.ApiCharacterValues;
-import com.diamssword.characters.network.SkinServerCache;
-import dev.onyxstudios.cca.api.v3.component.Component;
+import com.diamssword.characters.storage.PlayerCharacters;
+import com.diamssword.characters.api.http.ApiCharacterValues;
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.WorldProperties;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.function.Function;
 
 public class PlayerCharactersImpl extends PlayerCharacters implements ComponentV3, AutoSyncedComponent {
 
@@ -24,13 +17,18 @@ public class PlayerCharactersImpl extends PlayerCharacters implements ComponentV
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		if (tag.contains("characters")) {
-			NBTToMap(characters, tag.getCompound("characters"), t -> {
+			characters.clear();
+			var t1=tag.getCompound("characters");
+			t1.getKeys().forEach(k -> {
 				var d = new ApiCharacterValues();
-				return d.charactersfromNBT(t);
+				d.charactersfromNBT(t1.getCompound(k));
+				characters.put(k,d);
 			});
-			NBTToMap(savedAppearence, tag.getCompound("appearance"), t -> t);
-			NBTToMap(savedStats, tag.getCompound("stats"), t -> t);
-			NBTToMap(savedInventory, tag.getCompound("inventory"), t -> t);
+			if (tag.contains("data")) {
+				storedDatas.clear();
+				var t2=tag.getCompound("data");
+				t2.getKeys().forEach(k -> storedDatas.put(k,t2.getCompound(k)));
+			}
 		}
 		if (tag.contains("current")) {
 			currentCharID = tag.getString("current");
@@ -39,10 +37,12 @@ public class PlayerCharactersImpl extends PlayerCharacters implements ComponentV
 	}
 	@Override
 	public void writeToNbt(NbtCompound tag) {
-		tag.put("characters", mapToNBT(characters, ApiCharacterValues::toNBT));
-		tag.put("stats", mapToNBT(savedStats, t -> t));
-		tag.put("appearance", mapToNBT(savedAppearence, t -> t));
-		tag.put("inventory", mapToNBT(savedInventory, t -> t));
+		var t1 = new NbtCompound();
+		characters.forEach((k, v) -> t1.put(k, v.toNBT()));
+		tag.put("characters", t1);
+		var t2 = new NbtCompound();
+		storedDatas.forEach(t2::put);
+		tag.put("data",t2);
 		if (currentCharID != null)
 			tag.putString("current", currentCharID);
 	}

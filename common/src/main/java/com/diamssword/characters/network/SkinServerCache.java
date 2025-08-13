@@ -1,9 +1,8 @@
 package com.diamssword.characters.network;
 
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.WorldProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -103,7 +102,7 @@ public class SkinServerCache {
 	}
 
 	public static SkinServerCache get(MinecraftServer server) {
-		return ComponentManager.getSkinServerCache(server);
+		return ComponentManager.INSTANCE.getComponent(server, SkinServerCache.class);
 	}
 
 

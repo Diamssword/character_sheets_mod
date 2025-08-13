@@ -1,13 +1,12 @@
 package com.diamssword.characters.forge;
 
 import com.diamssword.characters.PlayerAppearance;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
+import com.diamssword.characters.api.IPlayerComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 
-public class PlayerDatasImpl implements ComponentManager.IPlayerComponent,SyncedCapability  {
+public class PlayerDatasImpl implements IPlayerComponent, SyncedCapability  {
 	private final PlayerEntity player;
 	private final PlayerAppearance appearance;
 
@@ -29,7 +28,7 @@ public class PlayerDatasImpl implements ComponentManager.IPlayerComponent,Synced
 	public NbtCompound toNBT() {
 		var res=new NbtCompound();
 		var ap = new NbtCompound();
-		appearance.writeToNbt(ap, false);
+		appearance.writeToNbt(ap, 0);
 		res.put("appearance", ap);
 		return res;
 	}
@@ -43,7 +42,7 @@ public class PlayerDatasImpl implements ComponentManager.IPlayerComponent,Synced
 	public NbtCompound writeSyncData() {
 		NbtCompound tag = new NbtCompound();
 		var ap = new NbtCompound();
-		appearance.writeToNbt(ap, true);
+		appearance.writeToNbt(ap, 1);
 		tag.put("appearance", ap);
 		return tag;
 	}

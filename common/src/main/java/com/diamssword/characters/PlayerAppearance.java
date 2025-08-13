@@ -1,10 +1,9 @@
 package com.diamssword.characters;
 
-import com.diamssword.characters.api.Cloth;
-import com.diamssword.characters.api.IPlayerAppearance;
-import com.diamssword.characters.api.LayerDef;
-import com.diamssword.characters.http.ApiSkinValues;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.*;
+import com.diamssword.characters.api.http.ApiCharacterValues;
+import com.diamssword.characters.api.http.ApiSkinValues;
+import com.diamssword.characters.storage.ClothingLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -55,7 +54,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		var car = ComponentManager.getPlayerDatas(sourcePlayer).getAppearence();
 		if (car != null) {
 			var tag=new NbtCompound();
-			car.writeToNbt(tag,false);
+			car.writeToNbt(tag,0);
 			this.readFromNbt(tag);
 
 		}
@@ -89,6 +88,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		}
 		return res;
 	}
+
 	public record ClothData(String texture, boolean needColor, int color) {
 	}
 	private void fillForcedLayers()
@@ -169,6 +169,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 			return Math.max(0.8f, Math.min(1.1f, scaledHeight));
 	}
 
+	@Override
 	public void readFromNbt(NbtCompound tag) {
 		if (tag.contains("default")) {
 			this.skinDatas = new ApiSkinValues().fromNBT(tag.getCompound("default"));
@@ -204,8 +205,9 @@ public class PlayerAppearance implements IPlayerAppearance {
 		fillForcedLayers();
 	}
 
-	public NbtCompound writeToNbt(NbtCompound tag, boolean forClient) {
-		if (skinDatas != null && forClient)
+	@Override
+	public NbtCompound writeToNbt(NbtCompound tag, int mode) {
+		if (skinDatas != null && mode==1)
 			tag.put("default", skinDatas.toNBT());
 		var cloths = new NbtCompound();
 		var unlocked = new NbtList();
@@ -272,5 +274,20 @@ public class PlayerAppearance implements IPlayerAppearance {
 			});
 
 		}
+	}
+
+	@Override
+	public void onCharacterLoad(PlayerEntity player, String newCharacterID, ApiCharacterValues newCharacter, @Nullable String oldCharacterID) {
+		refreshSkinData();
+	}
+	public static NbtCompound serializer(IPlayerAppearance instance)
+	{
+		var res=new NbtCompound();
+		instance.writeToNbt(res,0);
+		return  res;
+	}
+	public static void unserializer(IPlayerAppearance instance,NbtCompound tag)
+	{
+		instance.readFromNbt(tag);
 	}
 }

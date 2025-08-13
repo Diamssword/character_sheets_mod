@@ -1,8 +1,8 @@
 package com.diamssword.characters.network.packets;
 
-import com.diamssword.characters.ClothingLoader;
+import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.Channels;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;

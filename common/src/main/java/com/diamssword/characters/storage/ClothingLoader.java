@@ -1,11 +1,12 @@
-package com.diamssword.characters;
+package com.diamssword.characters.storage;
 
+import com.diamssword.characters.Characters;
 import com.diamssword.characters.api.Cloth;
 import com.diamssword.characters.api.LayerDef;
 import com.diamssword.characters.client.CharactersClient;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.DictionaryPackets;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -46,7 +47,14 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public Optional<Cloth> getCloth(String id) {
 		return Optional.ofNullable(cloths.get(id));
 	}
-
+	public void addCloth(Cloth cloth){
+		cloths.put(cloth.layer().getId()+"_"+cloth.id(),cloth);
+		shouldSync=true;
+	}
+	public void addLayer(LayerDef layer){
+		layers.put(layer.getId(),layer);
+		shouldSync=true;
+	}
 	public List<String> getCollections() {
 		return new ArrayList<>(collections);
 	}
@@ -55,10 +63,6 @@ public class ClothingLoader implements SynchronousResourceReloader {
 		return cloths.values().stream().filter(v -> collection.equals("all") || v.collection().equals(collection)).toList();
 	}
 
-	public List<Cloth> getClothsCollection(String collection, LayerDef... layers) {
-		var lays = Arrays.stream(layers).map(LayerDef::getId).toList();
-		return cloths.values().stream().filter(v -> (v.collection().equals(collection) || collection.equals("all")) && lays.contains(v.layer().getId())).toList();
-	}
 	public List<String> getClothIds()
 	{
 		return cloths.keySet().stream().toList();
@@ -83,7 +87,8 @@ public class ClothingLoader implements SynchronousResourceReloader {
 		}
 	}
 
-	public List<Cloth> getForLayers(LayerDef... layers) {	List<Cloth> res = new ArrayList<>();
+	public List<Cloth> getForLayers(LayerDef... layers) {
+		List<Cloth> res = new ArrayList<>();
 		var ls = Arrays.stream(layers).map(LayerDef::getId).toList();
 		cloths.forEach((k, v) -> {
 			if (ls.contains(v.layer().getId())) {

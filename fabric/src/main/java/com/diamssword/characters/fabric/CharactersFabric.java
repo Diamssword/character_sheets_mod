@@ -1,8 +1,6 @@
 package com.diamssword.characters.fabric;
 
-import com.diamssword.characters.storage.ComponentManager;
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import com.diamssword.characters.api.ComponentManager;
 import net.fabricmc.api.ModInitializer;
 
 import com.diamssword.characters.Characters;

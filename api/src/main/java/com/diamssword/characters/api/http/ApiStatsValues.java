@@ -1,4 +1,4 @@
-package com.diamssword.characters.http;
+package com.diamssword.characters.api.http;
 
 import net.minecraft.nbt.NbtCompound;
 

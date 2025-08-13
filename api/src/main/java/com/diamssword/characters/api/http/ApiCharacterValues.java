@@ -1,11 +1,6 @@
-package com.diamssword.characters.http;
+package com.diamssword.characters.api.http;
 
-import com.diamssword.characters.Characters;
-import com.google.gson.Gson;
-import com.mojang.authlib.GameProfile;
 import net.minecraft.nbt.NbtCompound;
-
-import java.util.concurrent.CompletableFuture;
 
 public class ApiCharacterValues {
 	public ApiSkinValues appearence;

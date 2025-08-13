@@ -1,6 +1,6 @@
 package com.diamssword.characters.network.packets;
 
-import com.diamssword.characters.ClothingLoader;
+import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.client.CharactersClient;
 import com.diamssword.characters.network.Channels;
 import dev.architectury.platform.Platform;

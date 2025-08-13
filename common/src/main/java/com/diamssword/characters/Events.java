@@ -3,16 +3,10 @@ package com.diamssword.characters;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.SkinServerCache;
 import com.diamssword.characters.network.packets.DictionaryPackets;
-import com.diamssword.characters.storage.ComponentManager;
-import dev.architectury.event.events.common.LifecycleEvent;
+import com.diamssword.characters.api.ComponentManager;
+import com.diamssword.characters.storage.ClothingLoader;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.TypeFilter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Events {
 	public static void init() {

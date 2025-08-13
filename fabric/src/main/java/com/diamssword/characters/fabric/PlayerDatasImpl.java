@@ -1,7 +1,8 @@
 package com.diamssword.characters.fabric;
 
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import com.diamssword.characters.PlayerAppearance;
+import com.diamssword.characters.api.IPlayerComponent;
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
@@ -10,7 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class PlayerDatasImpl implements ComponentManager.IPlayerComponent, ComponentV3, ServerTickingComponent, AutoSyncedComponent {
+public class PlayerDatasImpl implements IPlayerComponent, ComponentV3, ServerTickingComponent, AutoSyncedComponent {
 	private final PlayerEntity player;
 	private final PlayerAppearance appearance;
 
@@ -37,7 +38,7 @@ public class PlayerDatasImpl implements ComponentManager.IPlayerComponent, Compo
 
 		NbtCompound tag = new NbtCompound();
 			var ap = new NbtCompound();
-			appearance.writeToNbt(ap, true);
+			appearance.writeToNbt(ap, 1);
 			tag.put("appearance", ap);
 		buf.writeNbt(tag);
 	}
@@ -53,7 +54,7 @@ public class PlayerDatasImpl implements ComponentManager.IPlayerComponent, Compo
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		var ap = new NbtCompound();
-		appearance.writeToNbt(ap, false);
+		appearance.writeToNbt(ap, 0);
 		tag.put("appearance", ap);
 	}
 

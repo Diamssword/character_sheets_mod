@@ -1,7 +1,6 @@
 package com.diamssword.characters.forge;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.storage.ComponentManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

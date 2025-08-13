@@ -6,7 +6,7 @@ import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
 import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.TextAreaComponent;
-import com.diamssword.characters.owo.ui.FlowLayout;
+import io.wispforest.owo.ui.container.FlowLayout;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
@@ -16,7 +16,7 @@ public class OutfitPopupGui extends BaseUIModelScreen<FlowLayout> {
     private final int index;
     private final RButtonComponent bt;
     public OutfitPopupGui(WardrobeGui parent, int index, RButtonComponent bt) {
-        super(FlowLayout.class, DataSource.asset(Characters.asRessource("wardrobe_popup")));
+        super(FlowLayout.class, BaseUIModelScreen.DataSource.asset(Characters.asRessource("wardrobe_popup")));
         this.parent=parent;
         this.index=index;
         this.bt=bt;

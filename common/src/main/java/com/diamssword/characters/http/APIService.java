@@ -2,6 +2,7 @@ package com.diamssword.characters.http;
 
 import com.diamssword.characters.Characters;
 import com.diamssword.characters.Utils;
+import com.diamssword.characters.api.http.ApiCharacterValues;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

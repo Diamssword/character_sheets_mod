@@ -1,9 +1,10 @@
 package com.diamssword.characters.commands;
 
+import com.diamssword.characters.PlayerAppearance;
 import com.diamssword.characters.http.APIService;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -15,7 +16,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.world.World;
 
 public class SkinCommand {
 	private static final SuggestionProvider<ServerCommandSource> SUGGESTION_PROVIDER = (context, builder) -> {
@@ -50,7 +50,8 @@ public class SkinCommand {
 			var chs =ComponentManager.getPlayerCharacter(entity);
 			if (chs.getCharactersNames().contains(sub)) {
 				chs.switchCharacter(sub);
-				ComponentManager.getPlayerDatas(entity).getAppearence().refreshSkinData();
+				if(ComponentManager.getPlayerDatas(entity).getAppearence() instanceof PlayerAppearance ap)
+					ap.refreshSkinData();
 				Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(entity.getGameProfile().getId()));
 				ctx.getSource().sendFeedback(() -> Text.literal("Personnage appliqué: " + chs.getCurrentCharacterID()), true);
 				return 1;
@@ -95,7 +96,8 @@ public class SkinCommand {
 				if (b.isPresent()) {
 					var chs = ComponentManager.getPlayerCharacter(finalEntity);
 					chs.switchCharacter(chs.addNewCharacter(b.get()));
-					ComponentManager.getPlayerDatas(finalEntity).getAppearence().refreshSkinData();
+					if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
+						ap.refreshSkinData();
 					Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
 					ctx.getSource().sendFeedback(() -> Text.literal("Nouveau personnage appliqué avec succés: " + chs.getCurrentCharacterID()), true);
 					return 1;
@@ -127,7 +129,8 @@ public class SkinCommand {
 					if (b.isPresent()) {
 						chs.replaceCharacter(chara, b.get());
 						chs.switchCharacter(chara);
-						ComponentManager.getPlayerDatas(finalEntity).getAppearence().refreshSkinData();
+						if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
+							ap.refreshSkinData();
 						Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
 						ctx.getSource().sendFeedback(() -> Text.literal("Nouveau personnage appliqué avec succés: " + chs.getCurrentCharacterID()), true);
 						return 1;

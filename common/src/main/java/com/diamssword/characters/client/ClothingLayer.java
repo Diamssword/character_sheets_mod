@@ -1,8 +1,9 @@
 package com.diamssword.characters.client;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.PlayerAppearance;
 import com.diamssword.characters.api.LayerDef;
-import com.diamssword.characters.storage.ComponentManager;
+import com.diamssword.characters.api.ComponentManager;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -28,9 +29,9 @@ public class ClothingLayer  extends FeatureRenderer<AbstractClientPlayerEntity, 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         var data= ComponentManager.getPlayerDatas(entity);
-        if(data.getAppearence()!=null)
+        if(data.getAppearence() instanceof PlayerAppearance ap)
         {
-                var c1=data.getAppearence().getClothDatas(layer);
+                var c1=ap.getClothDatas(layer);
                 if(c1.isPresent())
                 {
                     var c=c1.get();
