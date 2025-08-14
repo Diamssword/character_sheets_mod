@@ -1,8 +1,8 @@
 package com.diamssword.characters.client;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.PlayerAppearance;
-import com.diamssword.characters.api.LayerDef;
+import com.diamssword.characters.storage.PlayerAppearance;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.api.ComponentManager;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;

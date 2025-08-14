@@ -29,7 +29,6 @@ public class ModNetworking {
     public static <MSG> void syncToTracking(ServerPlayerEntity player,MSG msg) {
 
             INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> player), msg);
-            syncToClient(player,msg);
     }
     
     // Send sync packet to all players

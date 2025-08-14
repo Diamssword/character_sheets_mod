@@ -1,4 +1,4 @@
-package com.diamssword.characters.api;
+package com.diamssword.characters.api.appearence;
 
 import net.minecraft.nbt.NbtCompound;
 

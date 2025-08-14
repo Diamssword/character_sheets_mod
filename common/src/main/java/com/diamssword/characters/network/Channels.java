@@ -1,6 +1,7 @@
 package com.diamssword.characters.network;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.storage.ClassesLoader;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
 import com.diamssword.characters.network.packets.DictionaryPackets;
@@ -15,6 +16,7 @@ public class Channels {
 	{
 		MAIN.init();
 		PacketBufSerializer.register(ClothingLoader.class, ClothingLoader::serializer, ClothingLoader::unserializer);
+		PacketBufSerializer.register(ClassesLoader.class, ClassesLoader::serializer, ClassesLoader::unserializer);
 		SkinServerCache.init();
 		CosmeticsPackets.init();
 		DictionaryPackets.init();

@@ -44,7 +44,7 @@ public class PlayerCharactersImpl extends PlayerCharacters implements SyncedCapa
 		return tag;
 	}
 
-	public NbtCompound writeSyncData() {
+	public NbtCompound writeSyncData(boolean toOwner) {
 		NbtCompound tag = new NbtCompound();
 		if (this.currentCharacter != null) {
 			tag.put("current", this.currentCharacter.toNBT());

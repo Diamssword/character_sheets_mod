@@ -1,5 +1,6 @@
-package com.diamssword.characters.api;
+package com.diamssword.characters.api.appearence;
 
+import com.diamssword.characters.api.ICharacterStored;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Pair;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public interface IPlayerAppearance extends ICharacterStored{
+public interface IPlayerAppearance extends ICharacterStored {
 
 
 	/**

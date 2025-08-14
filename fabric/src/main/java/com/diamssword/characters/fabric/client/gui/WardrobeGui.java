@@ -2,8 +2,8 @@ package com.diamssword.characters.fabric.client.gui;
 
 import com.diamssword.characters.Characters;
 import com.diamssword.characters.storage.ClothingLoader;
-import com.diamssword.characters.api.Cloth;
-import com.diamssword.characters.api.LayerDef;
+import com.diamssword.characters.api.appearence.Cloth;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.fabric.client.gui.components.ClothButtonComponent;
 import com.diamssword.characters.fabric.client.gui.components.FreeRowGridLayout;
 import com.diamssword.characters.fabric.client.gui.components.PlayerComponent;

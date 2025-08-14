@@ -1,8 +1,8 @@
 package com.diamssword.characters.storage;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.api.Cloth;
-import com.diamssword.characters.api.LayerDef;
+import com.diamssword.characters.api.appearence.Cloth;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.client.CharactersClient;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.DictionaryPackets;
@@ -39,8 +39,6 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	private final List<String> collections = new ArrayList<>();
 	private boolean shouldSync = false;
 
-	public ClothingLoader() {
-	}
 	public Identifier getId() {
 		return new Identifier(getName());
 	}

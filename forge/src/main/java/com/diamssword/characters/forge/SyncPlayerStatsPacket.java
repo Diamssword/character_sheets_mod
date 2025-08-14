@@ -25,13 +25,13 @@ public class SyncPlayerStatsPacket {
         this.capability = capability;
         this.data = data;
     }
-    public SyncPlayerStatsPacket(PlayerEntity player,Identifier capability) {
+    public SyncPlayerStatsPacket(PlayerEntity player,Identifier capability,boolean toOwner) {
         var cap=CapabilityEvents.CAPABILITY_MAP.get(capability);
         var d=player.getCapability(cap).resolve().get();
         this.player=player.getUuid();
         this.capability = capability;
         if(d instanceof SyncedCapability ca)
-            this.data = ca.writeSyncData();
+            this.data = ca.writeSyncData(toOwner);
         else
             this.data = new NbtCompound();
     }

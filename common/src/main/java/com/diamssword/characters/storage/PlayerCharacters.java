@@ -98,6 +98,7 @@ public class PlayerCharacters implements ICharacterSheets {
 	}
 	public void replaceCharacter(String id, ApiCharacterValues character) {
 		characters.put(id, character);
+		storedDatas.remove(id);
 	}
 
 	@Override

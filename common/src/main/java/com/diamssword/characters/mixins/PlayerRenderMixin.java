@@ -1,7 +1,7 @@
 package com.diamssword.characters.mixins;
 
 import com.diamssword.characters.storage.ClothingLoader;
-import com.diamssword.characters.api.LayerDef;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.client.ClothingLayer;
 import com.diamssword.characters.client.CustomPlayerModel;
 import com.diamssword.characters.client.Entities;

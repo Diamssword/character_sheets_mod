@@ -1,6 +1,8 @@
 package com.diamssword.characters.commands;
 
-import com.diamssword.characters.PlayerAppearance;
+import com.diamssword.characters.api.http.ApiCharacterValues;
+import com.diamssword.characters.storage.ClothingLoader;
+import com.diamssword.characters.storage.PlayerAppearance;
 import com.diamssword.characters.http.APIService;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
@@ -12,6 +14,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -96,6 +99,7 @@ public class SkinCommand {
 				if (b.isPresent()) {
 					var chs = ComponentManager.getPlayerCharacter(finalEntity);
 					chs.switchCharacter(chs.addNewCharacter(b.get()));
+					setNewProfileDatas(b.get(),finalEntity);
 					if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
 						ap.refreshSkinData();
 					Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
@@ -110,7 +114,19 @@ public class SkinCommand {
 		}
 		return 0;
 	}
+	private static void setNewProfileDatas(ApiCharacterValues character, PlayerEntity player)
+	{
+		var dts=ComponentManager.getPlayerDatas(player);
+		character.stats.points.forEach((k,v)-> dts.getStats().setLevel(k,v));
+		character.appearence.additionals.forEach((k,v)->{
+			var cloth=ClothingLoader.instance.getCloth(k+"_"+v);
+			cloth.ifPresent(c->{
+				if(c.layer().isBaseLayer())
+					dts.getAppearence().setCloth(c);
+			});
 
+		});
+	}
 	private static int replaceExec(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
 		var entity = ctx.getSource().getPlayer();
 		try {
@@ -129,6 +145,7 @@ public class SkinCommand {
 					if (b.isPresent()) {
 						chs.replaceCharacter(chara, b.get());
 						chs.switchCharacter(chara);
+						setNewProfileDatas(b.get(),finalEntity);
 						if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
 							ap.refreshSkinData();
 						Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));

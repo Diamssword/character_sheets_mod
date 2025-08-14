@@ -1,0 +1,143 @@
+{
+  "progression": {
+    "20": 5,
+    "40": 10,
+    "60": 15,
+    "80": 20,
+    "100": 25
+  },
+  "brute": {
+    "name": "Brute",
+    "stages": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60
+    ],
+    "desc": "La brute est là pour casser des trucs, que ce soit des gueules ou des meubles. Ce sont des montagnes de muscles qui peuvent utiliser leur force de multiples manières."
+  },
+  "avant_garde": {
+    "name": "Avant Garde",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le rôle de l'avant-garde est d'explorer et d’accéder aux lieux inaccessibles. Véritable acrobate et maître du parkour, il est capable de se déplacer vite et bien."
+  },
+  "survivant": {
+    "name": "Survivant",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le survivant est un vétéran, il a survécut à l'extérieur des camps pendant un temps et connaît toutes les astuces de la survie. Capable de se débrouiller seul, c’est quand il est en groupe qu’il brille réellement."
+  },
+  "chasseur": {
+    "name": "Chasseur",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le chasseur a pour but de traquer et tuer les animaux. Toujours sur le qui vive et maîtrisant les armes à distance, il repère et abat ses cibles de loin. Également capable de pêcher, il a une véritable connaissance des bêtes sauvages."
+  },
+  "artiste": {
+    "name": "Artiste",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Comme son nom l’indique, l’artiste est en lien avec tout ce qui touche à l’art. Il est là pour égayer la vie du campement et aider les survivants à laisser une trace durable dans le monde",
+    "disabled": true
+  },
+  "nanomancien": {
+    "name": "Nanomancien",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le nanomancien est capable de manier les programmes informatiques. En plus de lui donner accès à n’importe quel ordinateur, il est capable de tirer le meilleur des nanites de son corps.",
+    "disabled": true
+  },
+  "orateur": {
+    "name": "Orateur",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "L’orateur est un caméléon social, son rôle est d’unifier la communauté. Pour la protéger des menaces intérieurs, il doit aussi bien connaître les gens que de savoir apaiser les tensions ou faire preuve d’autorité.",
+    "disabled": true
+  },
+  "fermier": {
+    "name": "Fermier",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "S’occuper des plantes et des animaux"
+  },
+  "brikoleur": {
+    "name": "Brikoleur",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le brikoleur est un réparateur et un bidouilleur. Il s’occupe de fixer tout ce qui ne fonctionne pas. Il gère également les raccordement et surveille les réserves d’énergies"
+  },
+  "scientifik": {
+    "name": "Scientifik",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le scientifik manie les ingrédients de pointe : électricité, produit chimique et informatique. C’est un érudit, dépositaire de l’ancien savoir.",
+    "disabled": true
+  },
+  "medecin": {
+    "name": "Medecin",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le médecin sait comment soigner blessure et maladies. C’est un expert du scalpel et du fil à suture."
+  },
+  "paria": {
+    "name": "Paria",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le paria est quelqu’un qui n’a pas vraiment trouvé son rôle. Il a développé de nombreuses compétences pour se débrouiller par lui-même, mais n’en reste pas moins utile pour un groupe, sur tous les fronts, il aide la communauté la ou les experts cédent.",
+    "disabled": true
+  },
+  "kuisto": {
+    "name": "Kuisto",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Le kuisto est la"
+  },
+  "ferrailleur": {
+    "name": "Ferrailleur",
+    "stages": [
+      10,
+      15,
+      20
+    ],
+    "desc": "Gère tout ce qui est en lien avec l’acier"
+  }
+}

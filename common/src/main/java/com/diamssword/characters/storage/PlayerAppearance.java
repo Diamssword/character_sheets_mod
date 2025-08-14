@@ -1,13 +1,16 @@
-package com.diamssword.characters;
+package com.diamssword.characters.storage;
 
 import com.diamssword.characters.api.*;
+import com.diamssword.characters.api.appearence.Cloth;
+import com.diamssword.characters.api.appearence.IPlayerAppearance;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.api.http.ApiCharacterValues;
 import com.diamssword.characters.api.http.ApiSkinValues;
-import com.diamssword.characters.storage.ClothingLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +28,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		this.parent = parent;
 		if (!parent.getWorld().isClient && parent.getGameProfile() != null)
 			refreshSkinData();
-		fillForcedLayers();
+	//	fillForcedLayers();
 	}
 
 	public void tick() {
@@ -125,7 +128,8 @@ public class PlayerAppearance implements IPlayerAppearance {
 			this.cloths.remove(layer);
 		else
 			this.cloths.put(layer, cloth);
-		ComponentManager.syncPlayerDatas(parent);
+		if(parent instanceof ServerPlayerEntity)
+			ComponentManager.syncPlayerDatas(parent);
 
 	}
 	@Override

@@ -1,9 +1,9 @@
-package com.diamssword.characters;
+package com.diamssword.characters.implementations;
 
-import com.diamssword.characters.api.CharactersApi;
-import com.diamssword.characters.api.Cloth;
+import com.diamssword.characters.api.CharacterClothingApi;
 import com.diamssword.characters.api.ICharacterStored;
-import com.diamssword.characters.api.LayerDef;
+import com.diamssword.characters.api.appearence.Cloth;
+import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.storage.PlayerCharacters;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class CharactersApiImpl extends CharactersApi {
+public class CharactersClothingApiImpl extends CharacterClothingApi {
 
 	@Override
 	public void addCloth(Cloth cloth) {

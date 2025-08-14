@@ -423,5 +423,25 @@
       "id": "haut_manches_longues_troue_violet",
       "layer": "teeshirt",
       "name": "Haut Manches Longues Troue Violet"
+   },
+   {
+      "id": "1",
+      "layer": "underwear",
+      "name": "Feminin Noir"
+   },
+   {
+      "id": "2",
+      "layer": "underwear",
+      "name": "Feminin Rouge"
+   },
+   {
+      "id": "3",
+      "layer": "underwear",
+      "name": "Masculin blanc"
+   },
+   {
+      "id": "4",
+      "layer": "underwear",
+      "name": "Masculin vert"
    }
 ]

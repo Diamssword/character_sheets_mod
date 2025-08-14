@@ -29,10 +29,12 @@ public class ComponentsImpl extends ComponentManager {
 	public <T, A> void syncComponent(A entity, Class<T> componentClass) {
 		if(entity instanceof ServerPlayerEntity pl)
 		{
-			if( componentClass== IPlayerComponent.class)
-				pl.getCapability(CapabilityEvents.PLAYER_APPEARANCE).ifPresent(v->ModNetworking.syncToTracking(pl,new SyncPlayerStatsPacket(pl,CapabilityEvents.APPEARANCE)));
+			if( componentClass== IPlayerComponent.class) {
+				pl.getCapability(CapabilityEvents.PLAYER_APPEARANCE).ifPresent(v -> ModNetworking.syncToTracking(pl, new SyncPlayerStatsPacket(pl, CapabilityEvents.APPEARANCE,false)));
+				pl.getCapability(CapabilityEvents.PLAYER_APPEARANCE).ifPresent(v -> ModNetworking.syncToClient(pl, new SyncPlayerStatsPacket(pl, CapabilityEvents.APPEARANCE,true)));
+			}
 			else if( componentClass== ICharacterSheets.class)
-				pl.getCapability(CapabilityEvents.PLAYER_CHARACTERS).ifPresent(v->ModNetworking.syncToClient(pl,new SyncPlayerStatsPacket(pl,CapabilityEvents.CHARACTERS)));
+				pl.getCapability(CapabilityEvents.PLAYER_CHARACTERS).ifPresent(v->ModNetworking.syncToClient(pl,new SyncPlayerStatsPacket(pl,CapabilityEvents.CHARACTERS,true)));
 		}
 	}
 

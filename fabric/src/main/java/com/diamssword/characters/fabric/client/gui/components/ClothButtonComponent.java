@@ -1,7 +1,7 @@
 package com.diamssword.characters.fabric.client.gui.components;
 
 import com.diamssword.characters.Characters;
-import com.diamssword.characters.api.Cloth;
+import com.diamssword.characters.api.appearence.Cloth;
 import com.diamssword.characters.client.ClothingModel;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.wispforest.owo.mixin.ui.access.ClickableWidgetAccessor;

@@ -8,12 +8,14 @@
   {
     "id": "hair",
     "layer1": "14",
-    "layer2": "19"
+    "layer2": "19",
+    "baseLayer": true
   },
   {
     "id": "beard",
     "layer1": "11",
-    "layer2": "12"
+    "layer2": "12",
+    "baseLayer": true
   },
   {
     "id": "glasses",
@@ -39,7 +41,9 @@
   },
   {
     "id": "underwear",
-    "layer1": "2"
+    "layer1": "2",
+    "baseLayer": true,
+    "forced": true
   },
   {
     "id": "pants",
