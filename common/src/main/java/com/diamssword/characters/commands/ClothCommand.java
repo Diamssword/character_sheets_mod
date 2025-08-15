@@ -22,12 +22,10 @@ public class ClothCommand {
 	public static void register(LiteralArgumentBuilder<ServerCommandSource> builder) {
 		var root = builder.requires(ctx -> ctx.hasPermissionLevel(2));
 		for (var str : new String[]{"unlock", "lock", "set"}) {
-			root.then(CommandManager.literal(str).then(CommandManager.argument("id", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER)
-					.then(CommandManager.argument("player", EntityArgumentType.players())
+			root.then(CommandManager.literal(str).then(CommandManager.argument("player", EntityArgumentType.players()).then(CommandManager.argument("id", StringArgumentType.greedyString()).suggests(SUGGESTION_PROVIDER)
 							.executes(ctx -> Exec(ctx, str)))));
 		}
-		root.then(CommandManager.literal("remove").then(CommandManager.argument("layer", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER_LAYER)
-				.then(CommandManager.argument("player", EntityArgumentType.players())
+		root.then(CommandManager.literal("remove").then(CommandManager.argument("player", EntityArgumentType.players()).then(CommandManager.argument("layer", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER_LAYER)
 						.executes(ClothCommand::ExecRemove))));
 	}
 	private static int ExecRemove(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {

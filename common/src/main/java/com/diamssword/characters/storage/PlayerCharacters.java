@@ -71,7 +71,7 @@ public class PlayerCharacters implements ICharacterSheets {
 			});
 			if(oldChar!=null)
 				storedDatas.put(oldChar,oldCharSave);
-			SkinServerCache.get(player.getServer()).addToCache(player.getUuid(), car.base64Skin, car.base64SkinHead, car.appearence.slim);
+			SkinServerCache.get(player.getServer()).addToCache(player.getUuid(), car.base64Skin, car.base64SkinHead, car.appearance.slim);
 			ComponentManager.syncPlayerCharacter(player);
 			SkinServerCache.get(player.getServer()).setActiveCharacter(player, currentCharacter.stats.firstname + " " + currentCharacter.stats.lastname, currentCharacter.base64SkinHead);
 		}

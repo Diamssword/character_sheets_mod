@@ -1,13 +1,193 @@
 [
-	{
-      "id": "yellow_hasmat_suit",
-      "layer": "full",
-      "name": "yellow hasmat suit"
+   {
+      "id": "1",
+      "layer": "beard",
+      "name": "1"
+   },
+   {
+      "id": "2",
+      "layer": "beard",
+      "name": "2"
+   },
+   {
+      "id": "3",
+      "layer": "underwear",
+      "name": "3"
+   },
+   {
+      "id": "4",
+      "layer": "underwear",
+      "name": "4"
+   },
+   {
+      "id": "collier_symbole_hippie_argent",
+      "layer": "accessories",
+      "name": "Collier Symbole Hippie Argent"
    },
    {
       "id": "corde_bandouliere_torse",
       "layer": "accessories",
       "name": "Corde Bandouliere Torse"
+   },
+   {
+      "id": "kigurumi_dino_meat",
+      "layer": "full",
+      "name": "Kigurumi Dino Meat"
+   },
+   {
+      "id": "yellow_hasmat_suit",
+      "layer": "full",
+      "name": "Yellow Hasmat Suit"
+   },
+   {
+      "id": "lunettes_grosses_bleu_orange",
+      "layer": "glasses",
+      "name": "Lunettes Grosses Bleu Orange"
+   },
+   {
+      "id": "lunettes_grosses_bleu_orange_casse",
+      "layer": "glasses",
+      "name": "Lunettes Grosses Bleu Orange Casse"
+   },
+   {
+      "id": "long/4",
+      "layer": "hair",
+      "name": "Long/4"
+   },
+   {
+      "id": "long/n1",
+      "layer": "hair",
+      "name": "Long/n1"
+   },
+   {
+      "id": "medium/3",
+      "layer": "hair",
+      "name": "Medium/3"
+   },
+   {
+      "id": "short/1",
+      "layer": "hair",
+      "name": "Short/1"
+   },
+   {
+      "id": "short/10",
+      "layer": "hair",
+      "name": "Short/10"
+   },
+   {
+      "id": "short/11",
+      "layer": "hair",
+      "name": "Short/11"
+   },
+   {
+      "id": "short/115",
+      "layer": "hair",
+      "name": "Short/115"
+   },
+   {
+      "id": "short/12",
+      "layer": "hair",
+      "name": "Short/12"
+   },
+   {
+      "id": "short/13",
+      "layer": "hair",
+      "name": "Short/13"
+   },
+   {
+      "id": "short/14",
+      "layer": "hair",
+      "name": "Short/14"
+   },
+   {
+      "id": "short/148",
+      "layer": "hair",
+      "name": "Short/148"
+   },
+   {
+      "id": "short/15",
+      "layer": "hair",
+      "name": "Short/15"
+   },
+   {
+      "id": "short/157",
+      "layer": "hair",
+      "name": "Short/157"
+   },
+   {
+      "id": "short/16",
+      "layer": "hair",
+      "name": "Short/16"
+   },
+   {
+      "id": "short/2/1",
+      "layer": "hair",
+      "name": "Short/2/1"
+   },
+   {
+      "id": "short/2/2",
+      "layer": "hair",
+      "name": "Short/2/2"
+   },
+   {
+      "id": "short/2/3",
+      "layer": "hair",
+      "name": "Short/2/3"
+   },
+   {
+      "id": "short/2/4",
+      "layer": "hair",
+      "name": "Short/2/4"
+   },
+   {
+      "id": "short/2/5",
+      "layer": "hair",
+      "name": "Short/2/5"
+   },
+   {
+      "id": "short/2/6",
+      "layer": "hair",
+      "name": "Short/2/6"
+   },
+   {
+      "id": "short/2/7",
+      "layer": "hair",
+      "name": "Short/2/7"
+   },
+   {
+      "id": "short/5",
+      "layer": "hair",
+      "name": "Short/5"
+   },
+   {
+      "id": "short/9",
+      "layer": "hair",
+      "name": "Short/9"
+   },
+   {
+      "id": "short/old_2",
+      "layer": "hair",
+      "name": "Short/old 2"
+   },
+   {
+      "id": "bandana_noue_bleu",
+      "layer": "hat",
+      "name": "Bandana Noue Bleu"
+   },
+   {
+      "id": "bandana_noue_marron",
+      "layer": "hat",
+      "name": "Bandana Noue Marron"
+   },
+   {
+      "id": "bandana_noue_vert",
+      "layer": "hat",
+      "name": "Bandana Noue Vert"
+   },
+   {
+      "id": "bandana_noue_violet",
+      "layer": "hat",
+      "name": "Bandana Noue Violet"
    },
    {
       "id": "beret_militaire_neuf_bleu",
@@ -78,6 +258,16 @@
       "id": "beret_militaire_taches_vert",
       "layer": "hat",
       "name": "Beret Militaire Taches Vert"
+   },
+   {
+      "id": "chapeau_paille_vert",
+      "layer": "hat",
+      "name": "Chapeau Paille Vert"
+   },
+   {
+      "id": "chapka_marron",
+      "layer": "hat",
+      "name": "Chapka Marron"
    },
    {
       "id": "chemise_carreau_tombant_bleu",
@@ -235,6 +425,11 @@
       "name": "Baggy Troue Bas Violet"
    },
    {
+      "id": "jean_recoussue_gris",
+      "layer": "pants",
+      "name": "Jean Recoussue Gris"
+   },
+   {
       "id": "jean_recoussue_marron",
       "layer": "pants",
       "name": "Jean Recoussue Marron"
@@ -253,6 +448,11 @@
       "id": "jean_recoussue_vert",
       "layer": "pants",
       "name": "Jean Recoussue Vert"
+   },
+   {
+      "id": "jean_troue_gris",
+      "layer": "pants",
+      "name": "Jean Troue Gris"
    },
    {
       "id": "jean_troue_marron",
@@ -425,23 +625,18 @@
       "name": "Haut Manches Longues Troue Violet"
    },
    {
-      "id": "1",
+      "id": "calcon_beige_neuf",
       "layer": "underwear",
-      "name": "Feminin Noir"
+      "name": "Calcon Beige Neuf"
    },
    {
-      "id": "2",
+      "id": "calcon_beige_neuf_chausettes_blanches",
       "layer": "underwear",
-      "name": "Feminin Rouge"
+      "name": "Calcon Beige Neuf Chausettes Blanches"
    },
    {
-      "id": "3",
+      "id": "u-f-50",
       "layer": "underwear",
-      "name": "Masculin blanc"
-   },
-   {
-      "id": "4",
-      "layer": "underwear",
-      "name": "Masculin vert"
+      "name": "U F 50"
    }
 ]

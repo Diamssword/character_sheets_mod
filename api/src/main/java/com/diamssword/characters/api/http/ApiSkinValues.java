@@ -6,26 +6,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiSkinValues {
-	public Map<String,String> additionals=new HashMap<>();
+	public Map<String,String> additional =new HashMap<>();
 	public int size;
 	public boolean slim;
 
 	public NbtCompound toNBT() {
 		var tag = new NbtCompound();
 		var add=new NbtCompound();
-		additionals.forEach(add::putString);
-		tag.put("additionals",add);
+		additional.forEach(add::putString);
+		tag.put("additional",add);
 		tag.putInt("size", size);
 		tag.putBoolean("skinny", slim);
 		return tag;
 	}
 
 	public ApiSkinValues fromNBT(NbtCompound tag) {
-		additionals.clear();
-		if(tag.contains("additionals"))
+		additional.clear();
+		if(tag.contains("additional"))
 		{
-			var a=tag.getCompound("additionals");
-			a.getKeys().forEach(v->additionals.put(v,a.getString(v)));
+			var a=tag.getCompound("additional");
+			a.getKeys().forEach(v-> additional.put(v,a.getString(v)));
 		}
 		size = Math.min(99, Math.max(50, tag.getInt("size")));
 		slim = tag.getBoolean("skinny");

@@ -14,7 +14,7 @@ public class Events {
 		PlayerEvent.PLAYER_JOIN.register((h) -> {
 			var car = ComponentManager.getPlayerCharacter(h).getCurrentCharacter();
 			if (car != null)
-				SkinServerCache.get(h.server).addToCache(h.getUuid(), car.base64Skin, car.base64SkinHead, car.appearence.slim);
+				SkinServerCache.get(h.server).addToCache(h.getUuid(), car.base64Skin, car.base64SkinHead, car.appearance.slim);
 			Channels.sendToNonHost(h,new DictionaryPackets.ClothingList(ClothingLoader.instance),new DictionaryPackets.ClassesList(ClassesLoader.instance));
 			ComponentManager.syncPlayerDatas(h);
 		});

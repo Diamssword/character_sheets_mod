@@ -30,6 +30,7 @@ public class APIService {
 		var ob = new JsonObject();
 		ob.addProperty("key", Characters.config.serverOptions.ServerSideApiKey);
 		return postRequest(Characters.config.serverOptions.SkinServerURL + "/api/auth", "", ob).thenApply(rep -> {
+			System.out.println(Characters.config.serverOptions.ServerSideApiKey);
 			if (rep.statusCode() == 200) {
 
 				token = JsonParser.parseString(rep.body()).getAsJsonObject().get("token").getAsString();

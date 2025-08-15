@@ -7,3 +7,7 @@ forge/build
 forge/run
 api/build
 api/run
+build/
+skin_conf_gen/input
+skin_conf_gen/node_modules
+skin_conf_gen/steves

@@ -118,7 +118,7 @@ public class SkinCommand {
 	{
 		var dts=ComponentManager.getPlayerDatas(player);
 		character.stats.points.forEach((k,v)-> dts.getStats().setLevel(k,v));
-		character.appearence.additionals.forEach((k,v)->{
+		character.appearance.additional.forEach((k, v)->{
 			var cloth=ClothingLoader.instance.getCloth(k+"_"+v);
 			cloth.ifPresent(c->{
 				if(c.layer().isBaseLayer())
