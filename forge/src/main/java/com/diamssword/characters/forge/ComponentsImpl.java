@@ -27,7 +27,7 @@ public class ComponentsImpl extends ComponentManager {
 
 	@Override
 	public <T, A> void syncComponent(A entity, Class<T> componentClass) {
-		if(entity instanceof ServerPlayerEntity pl)
+		if(entity instanceof ServerPlayerEntity pl && pl.networkHandler !=null)
 		{
 			if( componentClass== IPlayerComponent.class) {
 				pl.getCapability(CapabilityEvents.PLAYER_APPEARANCE).ifPresent(v -> ModNetworking.syncToTracking(pl, new SyncPlayerStatsPacket(pl, CapabilityEvents.APPEARANCE,false)));

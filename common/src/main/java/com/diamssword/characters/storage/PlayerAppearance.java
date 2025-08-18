@@ -41,9 +41,10 @@ public class PlayerAppearance implements IPlayerAppearance {
 	}
 
 	public void refreshSkinData() {
-		var car = ComponentManager.getPlayerCharacter(parent).getCurrentCharacter();
-		if (car != null) {
-			skinDatas = car.appearance;
+		var carM = ComponentManager.getPlayerCharacter(parent);
+
+		if (carM != null && carM.getCurrentCharacter() !=null) {
+			skinDatas = carM.getCurrentCharacter().appearance;
 			if (skinDatas != null) {
 				scaledHeight = ApiSkinValues.HeightMToMCScale(1, skinDatas.size);
 				ComponentManager.syncPlayerDatas(parent);

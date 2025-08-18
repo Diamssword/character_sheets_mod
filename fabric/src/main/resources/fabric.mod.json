@@ -3,13 +3,13 @@
   "id": "character_sheet",
   "version": "${version}",
   "name": "Character Sheet",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "A mod modyfing most of the aspect of a player for a more roleplay experience.",
   "authors": [
-    "Me!"
+    "Diamssword"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://modrinth.com/mod/character-sheet",
+    "sources": "https://github.com/Diamssword/character_sheets_mod"
   },
   "license": "CC0-1.0",
   "icon": "assets/character_sheet/icon.png",
