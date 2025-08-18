@@ -1,5 +1,6 @@
 package com.diamssword.characters.client;
 
+import com.diamssword.characters.api.PlayerPresence;
 import com.diamssword.characters.mixins.PlayerSkinProviderAccessor;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.SkinServerCache;
@@ -59,7 +60,7 @@ public class SkinsLoader {
 		cacheDir = ((PlayerSkinProviderAccessor) MinecraftClient.getInstance().getSkinProvider()).getCacheDir();
 	}
 
-	public static void loadHead(UUID playerID, Consumer<Identifier> callback) {
+	public static void getHeadTexture(UUID playerID, Consumer<Identifier> callback) {
 		var profile = MinecraftClient.getInstance().getNetworkHandler().getPlayerListEntry(playerID);
 		if (profile != null) {
 			instance.loadSkin(profile.getProfile().getId(), true, (a, b, c) -> callback.accept(b));
@@ -165,9 +166,9 @@ public class SkinsLoader {
 		return identifier;
 	}
 
-	public static CompletableFuture<Map<UUID, SkinServerCache.PlayerPresence>> requestPlayerProfiles(String query) {
+	public static CompletableFuture<Map<UUID, PlayerPresence>> requestPlayerProfiles(String query) {
 		Channels.MAIN.clientHandle().send(new SkinServerCache.RequestPlayersMatching(query));
-		var future = new CompletableFuture<Map<UUID, SkinServerCache.PlayerPresence>>();
+		var future = new CompletableFuture<Map<UUID, PlayerPresence>>();
 		ClientComesticsPacket.PlayerProfilesRequestCallback = future::complete;
 		return future;
 	}

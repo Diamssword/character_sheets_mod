@@ -1,5 +1,6 @@
 package com.diamssword.characters.client;
 
+import com.diamssword.characters.api.PlayerPresence;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.SkinServerCache;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
@@ -9,7 +10,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public class ClientComesticsPacket {
-	public static Consumer<Map<UUID, SkinServerCache.PlayerPresence>> PlayerProfilesRequestCallback = null;
+	public static Consumer<Map<UUID, PlayerPresence>> PlayerProfilesRequestCallback = null;
 
 	public static void init() {
 

@@ -52,6 +52,11 @@ public class SkinCommand {
 		if (entity != null) {
 			var chs =ComponentManager.getPlayerCharacter(entity);
 			if (chs.getCharactersNames().contains(sub)) {
+				if(sub.equals(chs.getCurrentCharacterID()))
+				{
+					ctx.getSource().sendFeedback(() -> Text.literal("Ce personnage est déja le personnage actif: " + chs.getCurrentCharacterID()), true);
+					return 1;
+				}
 				chs.switchCharacter(sub);
 				if(ComponentManager.getPlayerDatas(entity).getAppearence() instanceof PlayerAppearance ap)
 					ap.refreshSkinData();

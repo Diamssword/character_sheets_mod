@@ -16,7 +16,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		super(entityType, world);
 	}
 
-	@Inject(at = @At("HEAD"), method = "getDimensions", cancellable = true)
+	@Inject(at = @At("TAIL"), method = "getDimensions", cancellable = true)
 	public void getDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
 		if (pose == EntityPose.STANDING || pose == EntityPose.CROUCHING || pose == EntityPose.SITTING) {
 			var comp = ComponentManager.getPlayerDatas((PlayerEntity)(Object) this);

@@ -9,13 +9,15 @@
     "id": "hair",
     "layer1": "14",
     "layer2": "19",
-    "baseLayer": true
+    "baseLayer": true,
+    "bodyPart": true
   },
   {
     "id": "beard",
     "layer1": "11",
     "layer2": "12",
-    "baseLayer": true
+    "baseLayer": true,
+    "bodyPart": true
   },
   {
     "id": "glasses",

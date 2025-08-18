@@ -4,12 +4,15 @@ import com.diamssword.characters.api.CharacterClothingApi;
 import com.diamssword.characters.api.ICharacterStored;
 import com.diamssword.characters.api.appearence.Cloth;
 import com.diamssword.characters.api.appearence.LayerDef;
+import com.diamssword.characters.network.Channels;
+import com.diamssword.characters.network.packets.CosmeticsPackets;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.storage.PlayerCharacters;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -63,14 +66,18 @@ public class CharactersClothingApiImpl extends CharacterClothingApi {
 	public List<Cloth> getAvailablesClothsCollectionForPlayer(PlayerEntity ent, String collection, LayerDef... layers) {
 		return ClothingLoader.instance.getAvailablesClothsCollectionForPlayer(ent, collection,layers);
 	}
-
 	@Override
-	public <T extends ICharacterStored> void attachComponentToCharacters(Identifier id, Function<ServerPlayerEntity, T> provider, Function<T, NbtCompound> serializer, BiConsumer<T, NbtCompound> unserializer) {
-		PlayerCharacters.attachComponentToCharacters(id,provider,serializer,unserializer);
+	public void clientAskEquipCloth(String clothID, @Nullable String layerID) {
+		Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipCloth(clothID,layerID));
 	}
 
 	@Override
-	public void unattachComponentFromCharacters(Identifier id) {
-		PlayerCharacters.unattachComponentFromCharacters(id);
+	public void clientAskEquipOutfit(int index) {
+		Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipOutfit(index));
+	}
+
+	@Override
+	public void clientAskSaveOutfit(String name, int index) {
+		Channels.MAIN.clientHandle().send(new CosmeticsPackets.SaveOutfit(name,index));
 	}
 }

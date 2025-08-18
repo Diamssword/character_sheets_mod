@@ -1,5 +1,6 @@
 package com.diamssword.characters.forge;
 
+import com.diamssword.characters.api.PlayerPresence;
 import com.diamssword.characters.network.SkinServerCache;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.WorldProperties;

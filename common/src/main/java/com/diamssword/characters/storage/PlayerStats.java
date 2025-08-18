@@ -1,5 +1,6 @@
 package com.diamssword.characters.storage;
 
+import com.diamssword.characters.api.CharactersApi;
 import com.diamssword.characters.api.appearence.IPlayerAppearance;
 import com.diamssword.characters.api.http.ApiCharacterValues;
 import com.diamssword.characters.api.stats.IPlayerStats;
@@ -7,6 +8,7 @@ import com.diamssword.characters.storage.ClassesLoader;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class PlayerStats implements IPlayerStats {
 		});
 		if (!player.getWorld().isClient)
 			onPlayerRespawn();
+
 	}
 
 	public NbtCompound writeToNbt() {
@@ -92,7 +95,6 @@ public class PlayerStats implements IPlayerStats {
 		for (var item : stats.entrySet()) {
 			ClassesLoader.onLevelChange(player, item.getKey(), item.getValue());
 		}
-		player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(50);
 	}
 
 	@Override

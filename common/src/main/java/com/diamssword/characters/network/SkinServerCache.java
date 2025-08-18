@@ -1,6 +1,7 @@
 package com.diamssword.characters.network;
 
 import com.diamssword.characters.api.ComponentManager;
+import com.diamssword.characters.api.PlayerPresence;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 
@@ -13,8 +14,6 @@ public class SkinServerCache {
 	public record PlayerInfos(String skin, String head, boolean slim) {
 	}
 
-	public record PlayerPresence(String characterName, String username, String head) {
-	}
 
 	public record SendPlayerPresences(Map<UUID, PlayerPresence> presences) {
 	}

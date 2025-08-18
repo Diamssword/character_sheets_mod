@@ -8,12 +8,12 @@ public class ComponentsRegister {
 	public static void init() {
 		MinecraftClient mc = MinecraftClient.getInstance();
 
-		UIParsing.registerFactory("player", PlayerComponent::parse);
+		UIParsing.registerFactory("sheet:player", PlayerComponent::parse);
 
-		UIParsing.registerFactory("separator", SeparatorComponent::parse);
-		UIParsing.registerFactory("rbutton", (a) -> new RButtonComponent(Text.empty(), (RButtonComponent button) -> {
+		UIParsing.registerFactory("sheet:separator", SeparatorComponent::parse);
+		UIParsing.registerFactory("sheet:rbutton", (a) -> new RButtonComponent(Text.empty(), (RButtonComponent button) -> {
 		}));
-		UIParsing.registerFactory("freerowgrid", FreeRowGridLayout::parse);
+		UIParsing.registerFactory("sheet:freerowgrid", FreeRowGridLayout::parse);
 
 
 	}

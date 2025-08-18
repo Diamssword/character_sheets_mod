@@ -1,9 +1,9 @@
 package com.diamssword.characters.fabric;
 
+import com.diamssword.characters.api.PlayerPresence;
 import com.diamssword.characters.network.SkinServerCache;
 import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.world.WorldProperties;
 
 import java.util.UUID;
 

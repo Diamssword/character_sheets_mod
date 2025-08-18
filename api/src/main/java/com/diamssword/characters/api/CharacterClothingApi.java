@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public abstract class CharacterClothingApi {
 	abstract public Map<String, LayerDef> getLayers();
 	abstract public List<Cloth> getAvailablesClothsCollectionForPlayer(PlayerEntity ent, String collection, LayerDef... layers);
 
-	abstract public <T extends ICharacterStored> void attachComponentToCharacters(Identifier id, Function<ServerPlayerEntity,T> provider, Function<T,NbtCompound> serializer, BiConsumer<T,NbtCompound> unserializer);
-	abstract public void unattachComponentFromCharacters(Identifier id);
+	abstract public void clientAskEquipCloth( String clothID, @Nullable String layerID);
+	abstract public void  clientAskEquipOutfit(int index);
+	abstract public void  clientAskSaveOutfit(String name,int index);
 }
