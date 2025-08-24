@@ -1,9 +1,12 @@
 package com.diamssword.characters.client;
 
 import com.diamssword.characters.api.PlayerPresence;
+import com.diamssword.characters.client.gui.WardrobeGui;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.network.SkinServerCache;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
+import com.diamssword.characters.network.packets.GuiPackets;
+import net.minecraft.client.MinecraftClient;
 
 import java.util.Map;
 import java.util.UUID;
@@ -27,6 +30,9 @@ public class ClientComesticsPacket {
 			if (PlayerProfilesRequestCallback != null)
 				PlayerProfilesRequestCallback.accept(msg.presences());
 			PlayerProfilesRequestCallback = null;
+		});
+		Channels.MAIN.registerClientbound(GuiPackets.WardRobePacket.class, (msg, ctx) -> {
+			MinecraftClient.getInstance().setScreen(new WardrobeGui(msg.type()));
 		});
 	}
 

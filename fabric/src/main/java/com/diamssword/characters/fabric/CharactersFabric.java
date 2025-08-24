@@ -16,7 +16,5 @@ public final class CharactersFabric implements ModInitializer {
         // Run our common setup.
         Characters.init();
         ComponentManager.INSTANCE=new ComponentsImpl();
-        Characters.registerCommand("wardrobe",WardrobeCommand::register);
-        GuiPackets.init();
     }
 }

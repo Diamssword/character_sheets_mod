@@ -1,0 +1,21 @@
+{
+	"character_sheet.wardrobe.layerbt.hat":"Hat",
+	"character_sheet.wardrobe.layerbt.glasses":"Glasses",
+	"character_sheet.wardrobe.layerbt.accessories":"Accessories",
+	"character_sheet.wardrobe.layerbt.jacket":"Jacket",
+	"character_sheet.wardrobe.layerbt.teeshirt":"Shirt",
+	"character_sheet.wardrobe.layerbt.underwear":"Underwear",
+	"character_sheet.wardrobe.layerbt.pants":"Pants",
+	"character_sheet.wardrobe.layerbt.shoes":"Shoes",
+	"character_sheet.wardrobe.layerbt.full":"Suit",
+	"character_sheet.wardrobe.layerbt.all":"Everything",
+	"character_sheet.wardrobe.layerbt.current":"Equipped",
+	"character_sheet.wardrobe.layerbt.hair":"Hairs",
+	"character_sheet.wardrobe.layerbt.beard":"Beard",
+	"character_sheet.wardrobe.outfitbt":"Outfit %d",
+	"character_sheet.wardrobe.outfitbt.tooltip":"\n[maj] + [clique] pour modifier cette tenue",
+	"character_sheet.wardrobe.search":"Search",
+	"character_sheet.wardrobe.outfit_name":"Name your outfit",
+	"character_sheet.wardrobe.outfit_create": "Confirm",
+	"character_sheet.wardrobe.outfit_cancel": "Cancel"
+}

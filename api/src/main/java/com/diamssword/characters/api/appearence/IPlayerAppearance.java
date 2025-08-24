@@ -45,7 +45,17 @@ public interface IPlayerAppearance extends ICharacterStored {
 	 */
 	public Optional<Cloth> getEquippedCloth(LayerDef layer);
 
+	/**
+	 *
+	 * @return cloths layers only
+	 */
 	public Map<String, Cloth> getEquippedCloths();
+
+	/**
+	 *
+	 * @return all layers
+	 */
+	public Map<String,Cloth> getEquippedLayers();
 
 	/**
 	 * try to equip a cloth, it will fail if the player have not unlocked the cloth

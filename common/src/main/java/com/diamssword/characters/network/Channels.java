@@ -1,6 +1,7 @@
 package com.diamssword.characters.network;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.network.packets.GuiPackets;
 import com.diamssword.characters.storage.ClassesLoader;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
@@ -20,6 +21,7 @@ public class Channels {
 		SkinServerCache.init();
 		CosmeticsPackets.init();
 		DictionaryPackets.init();
+		GuiPackets.init();
 	}
 
 

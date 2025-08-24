@@ -32,17 +32,20 @@
    {
       "id": "kigurumi_dino_meat",
       "layer": "full",
-      "name": "Kigurumi Dino Meat"
+      "name": "Kigurumi Dino Meat",
+      "collection": "Weebz"
    },
    {
       "id": "yellow_hasmat_suit",
       "layer": "full",
-      "name": "Yellow Hasmat Suit"
+      "name": "Yellow Hasmat Suit",
+      "collection": "Weebz"
    },
    {
       "id": "lunettes_grosses_bleu_orange",
       "layer": "glasses",
-      "name": "Lunettes Grosses Bleu Orange"
+      "name": "Lunettes Grosses Bleu Orange",
+      "collection": "Weebz"
    },
    {
       "id": "lunettes_grosses_bleu_orange_casse",

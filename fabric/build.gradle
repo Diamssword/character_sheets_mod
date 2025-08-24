@@ -41,9 +41,6 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-level:${project.cca_version}"
 
-    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
-    include "io.wispforest:owo-sentinel:${project.owo_version}"
-    annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
     common(project(path: ':api', configuration: 'namedElements')) { transitive false }

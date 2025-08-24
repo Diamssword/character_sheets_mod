@@ -10,6 +10,7 @@ public class LayerDef {
 	private boolean forced=false;
 	private boolean baseLayer=false;
 	private boolean bodyPart=false;
+	private String editor;
 	private int displayMode=0;
 	public LayerDef(String id,int layer1)
 	{
@@ -17,6 +18,21 @@ public class LayerDef {
 		this.layer1=layer1;
 	}
 
+	/**
+	 * If a special editor is set, editing this layer in game will only be allowed in this editor
+	 */
+	public LayerDef setSpecialEditor(String editor)
+	{
+		this.editor=editor;
+		return this;
+	}
+	/**
+	 * If a special editor is set, editing this layer in game will only be allowed in this editor
+	 */
+	public String getSpecialEditor()
+	{
+		return this.editor;
+	}
 	public String getId() {
 		return id;
 	}
@@ -114,12 +130,17 @@ public class LayerDef {
 		res.putBoolean("baseLayer", baseLayer);
 		res.putBoolean("bodyPart", bodyPart);
 		res.putInt("displayMode", displayMode);
+		if(editor !=null)
+			res.putString("editor", editor);
 		return res;
 	}
 
 	public static LayerDef fromNBT(NbtCompound comp) {
 		try {
-			return new LayerDef(comp.getString("id"), comp.getInt("layer1")).setLayer2(comp.getInt("layer2")).setBaseLayer(comp.getBoolean("baseLayer")).setForced(comp.getBoolean("forced")).setBodyPart(comp.getBoolean("bodyPart")).setDisplayMode(comp.getInt("dispalyMode"));
+			var def=new LayerDef(comp.getString("id"), comp.getInt("layer1")).setLayer2(comp.getInt("layer2")).setBaseLayer(comp.getBoolean("baseLayer")).setForced(comp.getBoolean("forced")).setBodyPart(comp.getBoolean("bodyPart")).setDisplayMode(comp.getInt("dispalyMode"));
+			if(comp.contains("editor"))
+				def.setSpecialEditor(comp.getString("editor"));
+			return def;
 		} catch (IllegalArgumentException e) {
 			return null;
 		}

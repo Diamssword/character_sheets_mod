@@ -7,6 +7,7 @@ import com.diamssword.characters.client.Entities;
 import com.diamssword.characters.commands.ClothCommand;
 import com.diamssword.characters.commands.PStatsCommand;
 import com.diamssword.characters.commands.SkinCommand;
+import com.diamssword.characters.commands.WardrobeCommand;
 import com.diamssword.characters.config.Config;
 import com.diamssword.characters.config.ConfigManager;
 import com.diamssword.characters.implementations.CharactersApiImpl;
@@ -51,6 +52,7 @@ public final class Characters {
         registerCommand("character", SkinCommand::register);
         registerCommand("cloths", ClothCommand::register);
         registerCommand("playerskills", PStatsCommand::register);
+        registerCommand("wardrobe", WardrobeCommand::register);
     }
     @Environment(EnvType.CLIENT)
     public static void initClient()

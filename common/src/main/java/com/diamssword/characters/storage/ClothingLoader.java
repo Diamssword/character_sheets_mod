@@ -149,6 +149,8 @@ public class ClothingLoader implements SynchronousResourceReloader {
 								layer.setBodyPart(ob.get("bodyPart").getAsBoolean());
 							if(ob.has("displayMode"))
 								layer.setDisplayMode(ob.get("displayMode").getAsInt());
+							if(ob.has("specialEditor"))
+								layer.setSpecialEditor(ob.get("specialEditor").getAsString());
 							layers.put(id, layer);
 						} catch (IllegalArgumentException e) {
 							LOGGER.error("Layer definition with id: {} can't be parsed ", id);

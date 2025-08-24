@@ -1,13 +1,10 @@
-package com.diamssword.characters.fabric.client.gui.components;
+package com.diamssword.characters.client.gui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.wispforest.owo.ui.base.BaseComponent;
-import io.wispforest.owo.ui.core.OwoUIDrawContext;
-import io.wispforest.owo.ui.core.Sizing;
-import io.wispforest.owo.ui.parsing.UIModel;
-import io.wispforest.owo.ui.parsing.UIParsing;
-import io.wispforest.owo.util.pond.OwoEntityRenderDispatcherExtension;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.Drawable;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.network.OtherClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -18,9 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
-import org.w3c.dom.Element;
-
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class PlayerComponent extends BaseComponent {
@@ -39,18 +33,17 @@ public class PlayerComponent extends BaseComponent {
 	protected Consumer<MatrixStack> transform = matrixStack -> {
 	};
 
-	protected PlayerComponent(Sizing sizing, PlayerEntity entity) {
+	public PlayerComponent(Sizing sizingX,Sizing sizingY, PlayerEntity entity) {
+		super(sizingX,sizingY);
 		final var client = MinecraftClient.getInstance();
 		this.dispatcher = client.getEntityRenderDispatcher();
 		this.entityBuffers = client.getBufferBuilders().getEntityVertexConsumers();
 
 		this.entity = entity;
-
-		this.sizing(sizing);
 	}
 
-	protected PlayerComponent(Sizing sizing) {
-		this(sizing, new OtherClientPlayerEntity(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile()) {
+	public PlayerComponent(Sizing sizingX,Sizing sizingY) {
+		this(sizingX,sizingY, new OtherClientPlayerEntity(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile()) {
 			@Override
 			public boolean isSpectator() {
 				return false;
@@ -65,22 +58,22 @@ public class PlayerComponent extends BaseComponent {
 	}
 
 	@Override
-	protected int determineHorizontalContentSize(Sizing sizing) {
-		return this.height;
+	protected int determineVerticalContentSize(Sizing sizing) {
+		return this.width;
 	}
 
 	@Override
-	protected void applySizing() {
-		final var horizontalSizing = this.horizontalSizing.get();
-		final var verticalSizing = this.verticalSizing.get();
-
-		final var margins = this.margins.get();
-		this.height = verticalSizing.inflate(this.space.height() - margins.vertical(), this::determineVerticalContentSize);
-		this.width = horizontalSizing.inflate(this.space.width() - margins.horizontal(), this::determineHorizontalContentSize);
+	public void mount(int x, int y, int width, int height) {
+		final var horizontalSizing = this.sizeX;
+		final var verticalSizing = this.sizeY;
+		this.x = x;
+		this.y = y;
+		this.width = horizontalSizing.inflate(width, this::determineHorizontalContentSize);
+		this.height = verticalSizing.inflate(height, this::determineVerticalContentSize);
 	}
 
 	@Override
-	public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		var matrices = context.getMatrices();
 		matrices.push();
 
@@ -107,9 +100,6 @@ public class PlayerComponent extends BaseComponent {
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-45 + this.mouseRotation));
 		}
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(rotation));
-		var dispatcher = (OwoEntityRenderDispatcherExtension) this.dispatcher;
-		dispatcher.owo$setCounterRotate(true);
-		dispatcher.owo$setShowNametag(this.showNametag);
 
 		RenderSystem.setShaderLights(new Vector3f(.15f, 1, 0), new Vector3f(.15f, -1, 0));
 		this.dispatcher.setRenderShadows(false);
@@ -119,22 +109,8 @@ public class PlayerComponent extends BaseComponent {
 		DiffuseLighting.enableGuiDepthLighting();
 
 		matrices.pop();
-
-		dispatcher.owo$setCounterRotate(false);
-		dispatcher.owo$setShowNametag(true);
 	}
 
-	@Override
-	public boolean onMouseDrag(double mouseX, double mouseY, double deltaX, double deltaY, int button) {
-		if (this.allowMouseRotation && button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
-			this.mouseRotation += deltaX;
-
-			super.onMouseDrag(mouseX, mouseY, deltaX, deltaY, button);
-			return true;
-		} else {
-			return super.onMouseDrag(mouseX, mouseY, deltaX, deltaY, button);
-		}
-	}
 
 	public PlayerEntity entity() {
 		return this.entity;
@@ -198,31 +174,5 @@ public class PlayerComponent extends BaseComponent {
 		return transform;
 	}
 
-	public PlayerComponent showNametag(boolean showNametag) {
-		this.showNametag = showNametag;
-		return this;
-	}
 
-	public boolean showNametag() {
-		return showNametag;
-	}
-
-	@Override
-	public boolean canFocus(FocusSource source) {
-		return source == FocusSource.MOUSE_CLICK;
-	}
-
-	@Override
-	public void parseProperties(UIModel model, Element element, Map<String, Element> children) {
-		super.parseProperties(model, element, children);
-
-		UIParsing.apply(children, "scale", UIParsing::parseFloat, this::scale);
-		UIParsing.apply(children, "look-at-cursor", UIParsing::parseBool, this::lookAtCursor);
-		UIParsing.apply(children, "mouse-rotation", UIParsing::parseBool, this::allowMouseRotation);
-		UIParsing.apply(children, "scale-to-fit", UIParsing::parseBool, this::scaleToFit);
-	}
-
-	public static PlayerComponent parse(Element element) {
-		return new PlayerComponent(Sizing.content());
-	}
 }

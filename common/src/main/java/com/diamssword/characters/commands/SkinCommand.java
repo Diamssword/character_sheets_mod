@@ -54,17 +54,17 @@ public class SkinCommand {
 			if (chs.getCharactersNames().contains(sub)) {
 				if(sub.equals(chs.getCurrentCharacterID()))
 				{
-					ctx.getSource().sendFeedback(() -> Text.literal("Ce personnage est déja le personnage actif: " + chs.getCurrentCharacterID()), true);
+					ctx.getSource().sendFeedback(() -> Text.literal("This character is already  the current character: " + chs.getCurrentCharacterID()), true);
 					return 1;
 				}
 				chs.switchCharacter(sub);
 				if(ComponentManager.getPlayerDatas(entity).getAppearence() instanceof PlayerAppearance ap)
 					ap.refreshSkinData();
 				Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(entity.getGameProfile().getId()));
-				ctx.getSource().sendFeedback(() -> Text.literal("Personnage appliqué: " + chs.getCurrentCharacterID()), true);
+				ctx.getSource().sendFeedback(() -> Text.literal("Character applied: " + chs.getCurrentCharacterID()), true);
 				return 1;
 			} else
-				ctx.getSource().sendFeedback(() -> Text.literal("Aucun personnage trouvé: " + sub), true);
+				ctx.getSource().sendFeedback(() -> Text.literal("No character found: " + sub), true);
 		}
 		return -1;
 	}
@@ -80,10 +80,10 @@ public class SkinCommand {
 			var chs = ComponentManager.getPlayerCharacter(entity);
 			if (chs.getCharactersNames().contains(sub)) {
 				chs.deleteCharacter(sub);
-				ctx.getSource().sendFeedback(() -> Text.literal("Personnage supprimé: " + sub), true);
+				ctx.getSource().sendFeedback(() -> Text.literal("Character ereased: " + sub), true);
 				return 1;
 			} else
-				ctx.getSource().sendFeedback(() -> Text.literal("Aucun personnage trouvé: " + sub), true);
+				ctx.getSource().sendFeedback(() -> Text.literal("No character found: " + sub), true);
 		}
 		return -1;
 	}
@@ -108,10 +108,10 @@ public class SkinCommand {
 					if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
 						ap.refreshSkinData();
 					Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
-					ctx.getSource().sendFeedback(() -> Text.literal("Nouveau personnage appliqué avec succés: " + chs.getCurrentCharacterID()), true);
+					ctx.getSource().sendFeedback(() -> Text.literal("New character successfully applied: " + chs.getCurrentCharacterID()), true);
 					return 1;
 				} else {
-					ctx.getSource().sendFeedback(() -> Text.literal("Erreur, veuillez réessayer"), true);
+					ctx.getSource().sendFeedback(() -> Text.literal("Error, please try again"), true);
 					return -1;
 				}
 			});
@@ -154,10 +154,10 @@ public class SkinCommand {
 						if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
 							ap.refreshSkinData();
 						Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
-						ctx.getSource().sendFeedback(() -> Text.literal("Nouveau personnage appliqué avec succés: " + chs.getCurrentCharacterID()), true);
+						ctx.getSource().sendFeedback(() -> Text.literal("Character replaced successfully: " + chs.getCurrentCharacterID()), true);
 						return 1;
 					} else {
-						ctx.getSource().sendFeedback(() -> Text.literal("Erreur, veuillez réessayer"), true);
+						ctx.getSource().sendFeedback(() -> Text.literal("Error, please try again"), true);
 						return -1;
 					}
 				});

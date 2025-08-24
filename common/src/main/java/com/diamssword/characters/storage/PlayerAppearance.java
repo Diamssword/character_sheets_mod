@@ -93,6 +93,16 @@ public class PlayerAppearance implements IPlayerAppearance {
 		return res;
 	}
 
+	@Override
+	public Map<String, Cloth> getEquippedLayers() {
+		var res = new HashMap<>(cloths);
+		for (LayerDef layer : ClothingLoader.instance.getLayers().values()) {
+			if (!res.containsKey(layer.getId()))
+				res.put(layer.getId(), null);
+		}
+		return res;
+	}
+
 	public record ClothData(String texture, boolean needColor, int color) {
 	}
 	private void fillForcedLayers()
@@ -125,8 +135,12 @@ public class PlayerAppearance implements IPlayerAppearance {
 	}
 	@Override
 	public void setCloth(String layer, @Nullable Cloth cloth) {
-		if (cloth == null)
-			this.cloths.remove(layer);
+		if (cloth == null) {
+			ClothingLoader.instance.getLayer(layer).ifPresent(l->{
+				if(!l.isForced())
+					this.cloths.remove(layer);
+			});
+		}
 		else
 			this.cloths.put(layer, cloth);
 		if(parent instanceof ServerPlayerEntity)
@@ -141,7 +155,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 	}
 	@Override
 	public void removeCloth(String layer) {
-			this.setCloth(layer,null);
+		this.setCloth(layer,null);
 	}
 	@Override
 	public void saveOutfit(String name, int index) {
@@ -236,7 +250,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 	}
 	public static class SavedOutfit {
 		public List<String> cloths = new ArrayList<>();
-		public final String name;
+		public String name;
 		public final PlayerAppearance parent;
 
 		public SavedOutfit(String name,PlayerAppearance parent) {
@@ -253,6 +267,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		}
 
 		public SavedOutfit fromNBT(NbtCompound tag) {
+			this.name=tag.getString("name");
 			var ls = tag.getList("cloths", NbtElement.COMPOUND_TYPE);
 			ls.forEach(v -> {
 				this.cloths.add(((NbtCompound) v).getString("id"));

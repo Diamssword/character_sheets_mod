@@ -10,14 +10,16 @@
     "layer1": "14",
     "layer2": "19",
     "baseLayer": true,
-    "bodyPart": true
+    "bodyPart": true,
+    "specialEditor": "hairs"
   },
   {
     "id": "beard",
     "layer1": "11",
     "layer2": "12",
     "baseLayer": true,
-    "bodyPart": true
+    "bodyPart": true,
+    "specialEditor": "hairs"
   },
   {
     "id": "glasses",
@@ -62,10 +64,5 @@
     "id": "full",
     "layer1": "21",
     "layer2": "26"
-  },
-  {
-    "id": "body",
-    "layer1": "0",
-    "layer2": "1"
   }
 ]

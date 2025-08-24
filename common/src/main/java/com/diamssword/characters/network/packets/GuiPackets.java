@@ -1,11 +1,9 @@
-package com.diamssword.characters.fabric;
+package com.diamssword.characters.network.packets;
 
 import com.diamssword.characters.network.Channels;
-import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 
 public class GuiPackets {
-	public record WardRobePacket() {}
+	public record WardRobePacket(String type) {}
 	public static void init() {
 		Channels.MAIN.registerClientboundDeferred(WardRobePacket.class);
 	}
