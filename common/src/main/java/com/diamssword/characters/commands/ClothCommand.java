@@ -11,18 +11,20 @@ import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public class ClothCommand {
-	private static final SuggestionProvider<ServerCommandSource> SUGGESTION_PROVIDER = (context, builder) -> CommandSource.suggestMatching(ClothingLoader.instance.getClothIds(), builder);
+	private static final SuggestionProvider<ServerCommandSource> SUGGESTION_PROVIDER = (context, builder) -> CommandSource.suggestMatching(ClothingLoader.instance.getClothIds().stream().map(Identifier::toString), builder);
 	private static final SuggestionProvider<ServerCommandSource> SUGGESTION_PROVIDER_LAYER = (context, builder) -> CommandSource.suggestMatching(ClothingLoader.instance.getLayers().keySet(), builder);
 
 	public static void register(LiteralArgumentBuilder<ServerCommandSource> builder) {
 		var root = builder.requires(ctx -> ctx.hasPermissionLevel(2));
 		for (var str : new String[]{"unlock", "lock", "set"}) {
-			root.then(CommandManager.literal(str).then(CommandManager.argument("player", EntityArgumentType.players()).then(CommandManager.argument("id", StringArgumentType.greedyString()).suggests(SUGGESTION_PROVIDER)
+			root.then(CommandManager.literal(str).then(CommandManager.argument("player", EntityArgumentType.players()).then(CommandManager.argument("id", IdentifierArgumentType.identifier()).suggests(SUGGESTION_PROVIDER)
 							.executes(ctx -> Exec(ctx, str)))));
 		}
 		root.then(CommandManager.literal("remove").then(CommandManager.argument("player", EntityArgumentType.players()).then(CommandManager.argument("layer", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER_LAYER)
@@ -49,7 +51,7 @@ public class ClothCommand {
 
 		var players = EntityArgumentType.getPlayers(ctx, "player");
 
-		String clothID = StringArgumentType.getString(ctx, "id");
+		Identifier clothID = IdentifierArgumentType.getIdentifier(ctx, "id");
 		var cloth = ClothingLoader.instance.getCloth(clothID);
 		if (cloth.isPresent()) {
 			for (var player : players) {

@@ -30,9 +30,7 @@ public class APIService {
 		var ob = new JsonObject();
 		ob.addProperty("key", Characters.config.serverOptions.ServerSideApiKey);
 		return postRequest(Characters.config.serverOptions.SkinServerURL + "/api/auth", "", ob).thenApply(rep -> {
-			System.out.println(Characters.config.serverOptions.ServerSideApiKey);
 			if (rep.statusCode() == 200) {
-
 				token = JsonParser.parseString(rep.body()).getAsJsonObject().get("token").getAsString();
 				return true;
 			}
@@ -48,19 +46,31 @@ public class APIService {
 	 * @return true if the skin was processed
 	 */
 	public static CompletableFuture<Optional<ApiCharacterValues>> importCharacter(PlayerEntity player, String code) {
+		return importCharacter(player,code,true);
+	}
+	/**
+	 * Use a code to validate a skin to the api_server
+	 *
+	 * @param player
+	 * @param code
+	 * @return true if the skin was processed
+	 */
+	public static CompletableFuture<Optional<ApiCharacterValues>> importCharacter(PlayerEntity player, String code,boolean firstTry) {
 		var ob = new JsonObject();
 		ob.addProperty("code", code);
 		ob.addProperty("uuid", player.getGameProfile().getId().toString());
 
 		return postRequest(Characters.config.serverOptions.SkinServerURL + "/api/player/validate", token, ob).thenApply(v -> {
 			if (v.statusCode() != 200) {
+				if(!firstTry)
+					return Optional.empty();
 				try {
 					return login().thenApply(c -> {
 						if (!c)
 							return Optional.<ApiCharacterValues>empty();
 						else {
 							try {
-								return importCharacter(player, code).get();
+								return importCharacter(player, code,false).get();
 							} catch (ExecutionException | InterruptedException e) {
 								return Optional.<ApiCharacterValues>empty();
 							}

@@ -13,9 +13,18 @@
 	"character_sheet.wardrobe.layerbt.hair":"Hairs",
 	"character_sheet.wardrobe.layerbt.beard":"Beard",
 	"character_sheet.wardrobe.outfitbt":"Outfit %d",
-	"character_sheet.wardrobe.outfitbt.tooltip":"\n[maj] + [clique] pour modifier cette tenue",
+	"character_sheet.wardrobe.outfitbt.tooltip":"\n[shift] + [click] to edit this outfit",
 	"character_sheet.wardrobe.search":"Search",
 	"character_sheet.wardrobe.outfit_name":"Name your outfit",
 	"character_sheet.wardrobe.outfit_create": "Confirm",
-	"character_sheet.wardrobe.outfit_cancel": "Cancel"
+	"character_sheet.wardrobe.outfit_cancel": "Cancel",
+	"character_sheet.add_gui.accept": "Confirm",
+	"character_sheet.add_gui.success": "Character successfully imported!",
+	"character_sheet.add_gui.code":"Code",
+	"character_sheet.add_gui.paste":"Paste",
+	"character_sheet.add_gui.title.add":"Add New Character",
+	"character_sheet.add_gui.title.replace":"Replace Current Character",
+	"character_sheet.add_gui.desc":"Paste the code from the web editor \nto import your character.",
+	"character_sheet.add_gui.desc.replace":"Your current character will be erased.",
+	"character_sheet.add_gui.error":"Error, check the inserted code."
 }

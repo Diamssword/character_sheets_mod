@@ -3,12 +3,13 @@ package com.diamssword.characters.network.packets;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.Channels;
 import com.diamssword.characters.api.ComponentManager;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 public class CosmeticsPackets {
-    public record EquipCloth( String clothID, @Nullable String layerID){};
+    public record EquipCloth(Identifier clothID, @Nullable String layerID){};
     public record EquipOutfit(int index){};
     public record RefreshSkin(UUID player){};
     public record SaveOutfit(String name,int index){};
@@ -16,7 +17,7 @@ public class CosmeticsPackets {
     {
         Channels.MAIN.registerClientboundDeferred(RefreshSkin.class);
         Channels.MAIN.registerServerbound(EquipCloth.class,(msg, ctx)->{
-            if(!msg.clothID.equals("null"))
+            if(!msg.clothID.getNamespace().equals("null"))
             {
                 var c= ClothingLoader.instance.getCloth(msg.clothID);
                 if(ctx.player().isCreative())

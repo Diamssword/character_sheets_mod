@@ -1,8 +1,9 @@
 package com.diamssword.characters.api.appearence;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 
-public record Cloth(String id, String name, LayerDef layer, String collection) {
+public record Cloth(Identifier id, String name, LayerDef layer, String collection) {
 		public NbtCompound toNBT() {
 			var res = new NbtCompound();
 			res.putString("name", name);
@@ -11,7 +12,7 @@ public record Cloth(String id, String name, LayerDef layer, String collection) {
 			return res;
 		}
 
-		public static Cloth fromNBT(NbtCompound comp, String id,LayerDef layer) {
+		public static Cloth fromNBT(NbtCompound comp, Identifier id,LayerDef layer) {
 			try {
 
 				return new Cloth(id, comp.getString("name"), layer, comp.getString("collection"));

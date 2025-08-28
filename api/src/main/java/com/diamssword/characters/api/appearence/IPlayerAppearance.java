@@ -3,6 +3,7 @@ package com.diamssword.characters.api.appearence;
 import com.diamssword.characters.api.ICharacterStored;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,10 +34,9 @@ public interface IPlayerAppearance extends ICharacterStored {
 	public void lockCLoth(Cloth id);
 
 	/**
-	 *
 	 * @return all owned cloths ids
 	 */
-	public ArrayList<String> getUnlockedCloths();
+	public ArrayList<Identifier> getUnlockedCloths();
 
 	/**
 	 * get current worn cloth for specified layer

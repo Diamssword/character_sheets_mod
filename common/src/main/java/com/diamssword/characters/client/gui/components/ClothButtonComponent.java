@@ -165,8 +165,8 @@ public class ClothButtonComponent extends ButtonWidget {
 		model.child = false;
 		model1.child = false;
 		var pack = OverlayTexture.packUv(OverlayTexture.getU(0), OverlayTexture.getV(false));
-		model.render(matrices, vertexConsumers.getBuffer(model.getLayer(Characters.asRessource("textures/cloth/" + cloth.layer().getId() + "/" + cloth.id() + ".png"))), light, pack, 1, 1, 1, 1);
-		model1.render(matrices, vertexConsumers.getBuffer(model1.getLayer(Characters.asRessource("textures/cloth/" + cloth.layer().getId() + "/" + cloth.id() + ".png"))), light, pack, 1, 1, 1, 1);
+		model.render(matrices, vertexConsumers.getBuffer(model.getLayer(new Identifier(cloth.id().getNamespace(),"textures/cloth/"+ cloth.id().getPath() + ".png"))), light, pack, 1, 1, 1, 1);
+		model1.render(matrices, vertexConsumers.getBuffer(model1.getLayer(new Identifier(cloth.id().getNamespace(),"textures/cloth/"+ cloth.id().getPath() + ".png"))), light, pack, 1, 1, 1, 1);
 
 	}
 }

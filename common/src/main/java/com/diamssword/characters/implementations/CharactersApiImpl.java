@@ -1,9 +1,11 @@
 package com.diamssword.characters.implementations;
 
 import com.diamssword.characters.api.*;
+import com.diamssword.characters.client.ClientComesticsPacket;
 import com.diamssword.characters.storage.PlayerCharacters;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -28,6 +30,11 @@ public class CharactersApiImpl extends CharactersApi {
 	@Environment(EnvType.CLIENT)
 	protected CharacterSkinApi getSkins() {
 		return new CharacterSkinImpl();
+	}
+
+	@Override
+	public void overrideWardrobeGui(Function<String, Screen> factory) {
+		ClientComesticsPacket.wardrobeGui=factory;
 	}
 
 	@Override

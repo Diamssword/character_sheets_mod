@@ -17,6 +17,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
@@ -169,10 +170,10 @@ public class WardrobeGui extends Screen {
 				a.playDownSound(MinecraftClient.getInstance().getSoundManager());
 				if (oldCloths.get(c.layer().id)==c) {
 					dt.getAppearence().setCloth(c.layer().id, null);
-					Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipCloth("null", c.layer().getId()));
+					Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipCloth(new Identifier("null","null"), c.layer().getId()));
 				} else {
 					dt.getAppearence().setCloth(c.layer().id, c);
-					Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipCloth(c.layer().getId() + "_" + c.id(), c.layer().toString()));
+					Channels.MAIN.clientHandle().send(new CosmeticsPackets.EquipCloth(c.id(), c.layer().toString()));
 				}
 				oldCloths =  equippedProvider.apply(player);
 				updateSelected(layout, oldCloths.values().stream().filter(Objects::nonNull).toList());

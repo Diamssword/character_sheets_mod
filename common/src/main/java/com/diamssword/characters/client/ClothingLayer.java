@@ -11,6 +11,7 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 import java.awt.*;
 
@@ -42,7 +43,7 @@ public class ClothingLayer  extends FeatureRenderer<AbstractClientPlayerEntity, 
                     {
                         col=new Color(c.color()).brighter();//dirty trick to make color fit more with the website viewer
                     }
-                        model.render(matrices,vertexConsumers.getBuffer(model.getLayer(Characters.asRessource("textures/cloth/"+layer.getId()+"/"+c.texture()+".png"))),light, LivingEntityRenderer.getOverlay(entity,0),col.getRed()/255f, col.getGreen() /255f,  col.getBlue() /255f,1);
+                        model.render(matrices,vertexConsumers.getBuffer(model.getLayer(new Identifier(c.texture().getNamespace(),"textures/cloth/"+c.texture().getPath()+".png"))),light, LivingEntityRenderer.getOverlay(entity,0),col.getRed()/255f, col.getGreen() /255f,  col.getBlue() /255f,1);
                 }
         }
     }

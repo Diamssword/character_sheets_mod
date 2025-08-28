@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.server.MinecraftServer;
@@ -34,7 +35,7 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public static ClothingLoader instance = new ClothingLoader();
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	private static final Logger LOGGER = LogUtils.getLogger();
-	private Map<String, Cloth> cloths = new HashMap<>();
+	private Map<Identifier, Cloth> cloths = new HashMap<>();
 	private Map<String, LayerDef> layers = new HashMap<>();
 	private final List<String> collections = new ArrayList<>();
 	private boolean shouldSync = false;
@@ -42,11 +43,11 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public Identifier getId() {
 		return new Identifier(getName());
 	}
-	public Optional<Cloth> getCloth(String id) {
+	public Optional<Cloth> getCloth(Identifier id) {
 		return Optional.ofNullable(cloths.get(id));
 	}
 	public void addCloth(Cloth cloth){
-		cloths.put(cloth.layer().getId()+"_"+cloth.id(),cloth);
+		cloths.put(cloth.id(),cloth);
 		shouldSync=true;
 	}
 	public void addLayer(LayerDef layer){
@@ -61,7 +62,7 @@ public class ClothingLoader implements SynchronousResourceReloader {
 		return cloths.values().stream().filter(v -> collection.equals("all") || v.collection().equals(collection)).toList();
 	}
 
-	public List<String> getClothIds()
+	public List<Identifier> getClothIds()
 	{
 		return cloths.keySet().stream().toList();
 	}
@@ -100,12 +101,12 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public String getName() {
 		return Characters.MOD_ID+":cloths";
 	}
-	private void loadCLoths(JsonArray array)
+	private void loadCLoths(String namespace,JsonArray array)
 	{
 		array.forEach(v -> {
 			var ob = v.getAsJsonObject();
 			if (ob.has("id")) {
-				var id1 = ob.get("layer").getAsString() + "_" + ob.get("id").getAsString();
+				var id1 = new Identifier(namespace,ob.get("layer").getAsString() + "/" + ob.get("id").getAsString());
 				if (!cloths.containsKey(id1)) {
 					if (ob.has("layer") && ob.has("name")) {
 							String col = "default";
@@ -113,7 +114,7 @@ public class ClothingLoader implements SynchronousResourceReloader {
 								col = ob.get("collection").getAsString();
 							var lay=layers.get(ob.get("layer").getAsString());
 							if(lay !=null) {
-								Cloth table = new Cloth(ob.get("id").getAsString(), ob.get("name").getAsString(),lay, col);
+								Cloth table = new Cloth(id1, ob.get("name").getAsString(),lay, col);
 								if (!collections.contains(col))
 									collections.add(col);
 								cloths.put(id1, table);
@@ -184,22 +185,22 @@ public class ClothingLoader implements SynchronousResourceReloader {
 				LOGGER.error("Couldn't parse data file {} from {}", idL, getName(), exception);
 			}
 		}
-		var id = Characters.asRessource("cloths.json");
-		var file = manager.getResource(id);
-		if (file.isPresent()) {
+		Map<Identifier, Resource> resources = manager.findResources("cloths",
+				identifier -> identifier.getPath().endsWith(".json"));
+		resources.forEach((k,v)->{
 			try {
-				BufferedReader reader = file.get().getReader();
+				BufferedReader reader = v.getReader();
 				try {
 					JsonArray jsonElement = JsonHelper.deserialize(GSON, reader, JsonArray.class);
-					loadCLoths(jsonElement);
+					loadCLoths(k.getNamespace(),jsonElement);
 				} finally {
 					((Reader) reader).close();
 					shouldSync = true;
 				}
 			} catch (JsonParseException | IOException | IllegalArgumentException exception) {
-				LOGGER.error("Couldn't parse data file {} from {}", id, getName(), exception);
+				LOGGER.error("Couldn't parse data file {} from {}", k, getName(), exception);
 			}
-		}
+		});
 	}
 
 	public void worldTick(MinecraftServer server) {
@@ -218,8 +219,7 @@ public class ClothingLoader implements SynchronousResourceReloader {
 		val.layers.forEach((u,v)-> lays.add(v.toNBT()));
 		val.cloths.forEach((u, v) -> {
 			var v1 = v.toNBT();
-			v1.putString("id", u);
-			v1.putString("texture", v.id());
+			v1.putString("id", u.toString());
 			list.add(v1);
 		});
 		val.collections.forEach(c -> {
@@ -255,9 +255,9 @@ public class ClothingLoader implements SynchronousResourceReloader {
 			try {
 				var lay=loader.layers.get(((NbtCompound) el).getString("layer"));
 				if(lay !=null) {
-					var t = Cloth.fromNBT((NbtCompound) el, ((NbtCompound) el).getString("texture"), lay);
+					var t = Cloth.fromNBT((NbtCompound) el, new Identifier(((NbtCompound) el).getString("id")), lay);
 					if (t != null)
-						loader.cloths.put(((NbtCompound) el).getString("id"), t);
+						loader.cloths.put(t.id(), t);
 				}
 			} catch (Exception e) {
 				LOGGER.error("Couldn't parse packet data for cloth: {}", el, e);

@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +21,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 	private float scaledHeight = 1f;
 	private final Map<String, Cloth> cloths = new HashMap<>();
 	private final PlayerEntity parent;
-	private final List<String> unlockedCloths = new ArrayList<>();
+	private final List<Identifier> unlockedCloths = new ArrayList<>();
 	private final SavedOutfit[] outfits = new SavedOutfit[7];
 	private ApiSkinValues skinDatas;
 
@@ -65,16 +66,16 @@ public class PlayerAppearance implements IPlayerAppearance {
 	}
 
 	public void unlockCloth(Cloth cloth) {
-		if (!unlockedCloths.contains(cloth.layer().id+"_"+cloth.id()))
-			unlockedCloths.add(cloth.layer().id+"_"+cloth.id());
+		if (!unlockedCloths.contains(cloth.id()))
+			unlockedCloths.add(cloth.id());
 	}
 
 	@Override
 	public void lockCLoth(Cloth cloth) {
-		unlockedCloths.remove(cloth.layer().id+"_"+cloth.id());
+		unlockedCloths.remove(cloth.id());
 	}
 	@Override
-	public ArrayList<String> getUnlockedCloths() {
+	public ArrayList<Identifier> getUnlockedCloths() {
 		return new ArrayList<>(unlockedCloths);
 	}
 
@@ -103,7 +104,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		return res;
 	}
 
-	public record ClothData(String texture, boolean needColor, int color) {
+	public record ClothData(Identifier texture, boolean needColor, int color) {
 	}
 	private void fillForcedLayers()
 	{
@@ -127,7 +128,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		if (cloth == null) {
 			return false;
 		}
-		if (this.parent.getWorld().isClient || this.parent.isCreative() || this.unlockedCloths.contains(cloth.layer().getId()+"_"+cloth.id())) {
+		if (this.parent.getWorld().isClient || this.parent.isCreative() || this.unlockedCloths.contains(cloth.id())) {
 			setCloth(cloth.layer().id, cloth);
 			return true;
 		} else
@@ -199,7 +200,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 			var cl = tag.getCompound("cloths");
 			cl.getKeys().forEach(k -> {
 				try {
-					var cl1 = ClothingLoader.instance.getCloth(cl.getString(k));
+					var cl1 = ClothingLoader.instance.getCloth(new Identifier(cl.getString(k)));
 					cl1.ifPresent(v -> cloths.put(v.layer().getId(), v));
 				} catch (Exception ignored) {
 				}
@@ -208,7 +209,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		if (tag.contains("unlockedCloths")) {
 			unlockedCloths.clear();
 			var cl = tag.getList("unlockedCloths", NbtElement.COMPOUND_TYPE);
-			cl.forEach(k -> unlockedCloths.add(((NbtCompound) k).getString("id")));
+			cl.forEach(k -> unlockedCloths.add(new Identifier(((NbtCompound) k).getString("id"))));
 		}
 		if (tag.contains("outfits")) {
 			var cl = tag.getList("outfits", NbtElement.COMPOUND_TYPE);
@@ -232,10 +233,10 @@ public class PlayerAppearance implements IPlayerAppearance {
 		var unlocked = new NbtList();
 		this.unlockedCloths.forEach(v -> {
 			var t = new NbtCompound();
-			t.putString("id", v);
+			t.putString("id", v.toString());
 			unlocked.add(t);
 		});
-		this.cloths.forEach((i, v) -> cloths.putString(i, v.layer().getId() + "_" + v.id()));
+		this.cloths.forEach((i, v) -> cloths.putString(i, v.id().toString()));
 		tag.put("unlockedCloths", unlocked);
 		tag.put("cloths", cloths);
 		var outLs = new NbtList();
@@ -249,7 +250,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 		return tag;
 	}
 	public static class SavedOutfit {
-		public List<String> cloths = new ArrayList<>();
+		public List<Identifier> cloths = new ArrayList<>();
 		public String name;
 		public final PlayerAppearance parent;
 
@@ -262,7 +263,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 			cloths.clear();
 			parent.getEquippedCloths().forEach((l, c) -> {
 				if (c != null)
-					cloths.add(c.layer().getId() + "_" + c.id());
+					cloths.add(c.id());
 			});
 		}
 
@@ -270,7 +271,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 			this.name=tag.getString("name");
 			var ls = tag.getList("cloths", NbtElement.COMPOUND_TYPE);
 			ls.forEach(v -> {
-				this.cloths.add(((NbtCompound) v).getString("id"));
+				this.cloths.add(new Identifier(((NbtCompound) v).getString("id")));
 			});
 			return this;
 		}
@@ -281,7 +282,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 			var ls = new NbtList();
 			this.cloths.forEach(c -> {
 				var c1 = new NbtCompound();
-				c1.putString("id", c);
+				c1.putString("id", c.toString());
 				ls.add(c1);
 			});
 			res.put("cloths", ls);

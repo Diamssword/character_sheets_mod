@@ -2,6 +2,7 @@ package com.diamssword.characters.api;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -28,6 +29,10 @@ public abstract class CharactersApi {
 	abstract protected CharacterStatsApi getStats();
 	@Environment(EnvType.CLIENT)
 	abstract protected CharacterSkinApi getSkins();
+
+	@Environment(EnvType.CLIENT)
+	abstract public void overrideWardrobeGui(Function<String,Screen> factory);
+
 
 	abstract public <T extends ICharacterStored> void attachComponentToCharacters(Identifier id, Function<ServerPlayerEntity,T> provider, Function<T, NbtCompound> serializer, BiConsumer<T, NbtCompound> unserializer);
 
