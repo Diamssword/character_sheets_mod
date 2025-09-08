@@ -16,3 +16,6 @@ The mod is mostly data driven, allowing you to modify cloth list, cloths layers 
 
 # Api:
 The way you can get the most of the mod is whith the API, it allow you to get current player profile, register components to save and restore with each character sheets, harness the stats system to make gameplay changes...
+
+# Web editor:
+As of now, your own instance of the web editor is required to allow the mod to function, you can find instruction on how to set it up here: [Character Sheet Web Editor](https://github.com/Diamssword/character_sheet_web_editor)
