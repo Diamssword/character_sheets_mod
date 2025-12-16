@@ -1,8 +1,8 @@
 [
   {
     "id": "hat",
-    "layer1": "27",
-    "layer2": "32",
+    "layer1": "21",
+    "layer2": "26",
     "displayMode" : 1
   },
   {
@@ -62,7 +62,7 @@
   },
   {
     "id": "full",
-    "layer1": "21",
-    "layer2": "26"
+    "layer1": "27",
+    "layer2": "32"
   }
 ]
