@@ -42,6 +42,11 @@ public class CharactersClothingApiImpl extends CharacterClothingApi {
 	}
 
 	@Override
+	public List<Cloth> getAllCloths() {
+		return  ClothingLoader.instance.getCloths();
+	}
+
+	@Override
 	public List<Cloth> getClothsCollection(String collection) {
 		return ClothingLoader.instance.getClothsCollection(collection);
 	}
@@ -54,6 +59,11 @@ public class CharactersClothingApiImpl extends CharacterClothingApi {
 	@Override
 	public Map<String, LayerDef> getLayers() {
 		return ClothingLoader.instance.getLayers();
+	}
+
+	@Override
+	public List<Cloth> getClothsIn(String[] collections,String[] levels, LayerDef... layers) {
+		return ClothingLoader.instance.getClothsIn(collections,levels,layers);
 	}
 
 	@Override

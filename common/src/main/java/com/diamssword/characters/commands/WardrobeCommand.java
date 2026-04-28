@@ -32,7 +32,14 @@ public class WardrobeCommand {
 
 	};
 	public static void register(LiteralArgumentBuilder<ServerCommandSource> builder) {
-		builder.requires(ctx -> ctx.hasPermissionLevel(2)).then(CommandManager.argument("player", EntityArgumentType.players()).executes((e)->{
+		builder.requires(ctx -> ctx.hasPermissionLevel(2)).executes(e->{
+			if(e.getSource().isExecutedByPlayer())
+			{
+				Channels.MAIN.serverHandle(e.getSource().getPlayer()).send(new GuiPackets.WardRobePacket("default"));
+				return 1;
+			}
+			return -1;
+		}).then(CommandManager.argument("player", EntityArgumentType.players()).executes((e)->{
 			var players=EntityArgumentType.getPlayers(e,"player");
 			Channels.MAIN.serverHandle(players).send(new GuiPackets.WardRobePacket("default"));
 			return 1;

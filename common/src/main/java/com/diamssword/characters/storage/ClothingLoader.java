@@ -1,6 +1,7 @@
 package com.diamssword.characters.storage;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.api.CharacterClothingApi;
 import com.diamssword.characters.api.appearence.Cloth;
 import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.client.CharactersClient;
@@ -43,6 +44,9 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public Identifier getId() {
 		return new Identifier(getName());
 	}
+		public List<Cloth> getCloths() {
+		return cloths.values().stream().toList();
+	}
 	public Optional<Cloth> getCloth(Identifier id) {
 		return Optional.ofNullable(cloths.get(id));
 	}
@@ -75,14 +79,22 @@ public class ClothingLoader implements SynchronousResourceReloader {
 	public Map<String,LayerDef> getLayers() {
 		return layers;
 	}
+	public List<Cloth> getClothsIn(String[] levels,String[] collections,LayerDef... layers) {
+		var ls=Arrays.stream(collections).toList();
+		var levelsS=Arrays.stream(levels).toList();
+		var flg=ls.contains(CharacterClothingApi.ALL_COLLECTIONS);
+		var flg1=levelsS.contains(CharacterClothingApi.ANY_LEVEL);
+		var lays = Arrays.stream(layers).map(LayerDef::getId).toList();
+		return cloths.values().stream().filter(v -> (flg || ls.contains(v.collection())) && (flg1 || levelsS.contains(v.level())) && lays.contains(v.layer().getId())).toList();
+	}
 	public List<Cloth> getAvailablesClothsCollectionForPlayer(PlayerEntity ent, String collection, LayerDef... layers) {
 
 		var lays = Arrays.stream(layers).map(LayerDef::getId).toList();
 		if (ent.isCreative())
-			return cloths.values().stream().filter(v -> (collection.equals("all") || v.collection().equals(collection)) && lays.contains(v.layer().getId())).toList();
+			return cloths.values().stream().filter(v -> (collection.equals(CharacterClothingApi.ALL_COLLECTIONS) || v.collection().equals(collection)) && lays.contains(v.layer().getId())).toList();
 		else {
 			var unl = ComponentManager.getPlayerDatas(ent).getAppearence().getUnlockedCloths();
-			return cloths.values().stream().filter(v -> (collection.equals("all") || v.collection().equals(collection)) && lays.contains(v.layer().getId()) && unl.contains(v.layer().getId()+"_"+v.id())).toList();
+			return cloths.values().stream().filter(v -> (collection.equals(CharacterClothingApi.ALL_COLLECTIONS) || v.collection().equals(collection)) && lays.contains(v.layer().getId()) && unl.contains(v.id())).toList();
 		}
 	}
 
@@ -109,12 +121,15 @@ public class ClothingLoader implements SynchronousResourceReloader {
 				var id1 = new Identifier(namespace,ob.get("layer").getAsString() + "/" + ob.get("id").getAsString());
 				if (!cloths.containsKey(id1)) {
 					if (ob.has("layer") && ob.has("name")) {
-							String col = "default";
+							String col = CharacterClothingApi.DEFAULT_LEVEL;
+						String level = CharacterClothingApi.DEFAULT_LEVEL;
 							if (ob.has("collection"))
 								col = ob.get("collection").getAsString();
+							if (ob.has("level"))
+								level = ob.get("level").getAsString();
 							var lay=layers.get(ob.get("layer").getAsString());
 							if(lay !=null) {
-								Cloth table = new Cloth(id1, ob.get("name").getAsString(),lay, col);
+								Cloth table = new Cloth(id1, ob.get("name").getAsString(),lay, col,level);
 								if (!collections.contains(col))
 									collections.add(col);
 								cloths.put(id1, table);
