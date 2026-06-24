@@ -1,8 +1,12 @@
 package com.diamssword.characters.commands;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.api.CharactersApi;
 import com.diamssword.characters.api.http.ApiCharacterValues;
+import com.diamssword.characters.api.http.SkinLayerValue;
+import com.diamssword.characters.api.skin.BodyLayerInfo;
 import com.diamssword.characters.network.packets.GuiPackets;
+import com.diamssword.characters.storage.BodyPartsLoader;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.storage.PlayerAppearance;
 import com.diamssword.characters.http.APIService;
@@ -40,15 +44,36 @@ public class SkinCommand {
 		return CommandSource.suggestMatching(new String[0], builder);
 
 	};
+	private static final SuggestionProvider<ServerCommandSource> SUGGESTION_PROVIDER1 = (context, builder) -> {
+			return CommandSource.suggestMatching(Characters.config.serverOptions.getGuiNames(), builder);
+
+
+	};
 
 	public static void register(LiteralArgumentBuilder<ServerCommandSource> builder) {
 		var root = builder.requires(ctx -> ctx.hasPermissionLevel(2));
+		var edit = CommandManager.literal("edit").executes(ctx->{
+			if(ctx.getSource().isExecutedByPlayer())
+			{
+				return GuiPackets.openEditGui(List.of(ctx.getSource().getPlayer()),null)?1:-1;
+			}
+			return -1;
+		}).then(CommandManager.argument("player", EntityArgumentType.players()).executes(ctx->{
+			var players=EntityArgumentType.getPlayers(ctx,"player");
+			return GuiPackets.openEditGui(players,null)?1:-1;
+		}).then(CommandManager.argument("category",StringArgumentType.word()).suggests(SUGGESTION_PROVIDER1).executes(ctx-> {
+			var players=EntityArgumentType.getPlayers(ctx,"player");
+			var type=StringArgumentType.getString(ctx,"category");
+			return GuiPackets.openEditGui(players,type)?1:-1;
+		})));
 		var add = CommandManager.literal("add").then(CommandManager.argument("code", StringArgumentType.string()).executes(SkinCommand::createExec1).then(CommandManager.argument("player", EntityArgumentType.player()).executes(SkinCommand::createExec1)));
 		var replace = CommandManager.literal("replace").then(CommandManager.argument("character", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER).then(CommandManager.argument("code", StringArgumentType.string()).executes(SkinCommand::replaceExec).then(CommandManager.argument("player", EntityArgumentType.player()).executes(SkinCommand::replaceExec))));
 		var switc = CommandManager.literal("switch").then(CommandManager.argument("character", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER).executes(SkinCommand::switchExec).then(CommandManager.argument("player", EntityArgumentType.player()).executes(SkinCommand::switchExec)));
 		var remov = CommandManager.literal("delete").then(CommandManager.argument("character", StringArgumentType.string()).suggests(SUGGESTION_PROVIDER).executes(SkinCommand::removeExec).then(CommandManager.argument("player", EntityArgumentType.player()).executes(SkinCommand::removeExec)));
 		var gui = CommandManager.literal("gui").then(CommandManager.literal("replace").then(CommandManager.argument("player", EntityArgumentType.players()).executes(e -> guiExec(e, false)))).then(CommandManager.literal("add").then(CommandManager.argument("player", EntityArgumentType.players()).executes(e -> guiExec(e, true))));
+
 		root.then(add);
+		root.then(edit);
 		root.then(replace);
 		root.then(switc);
 		root.then(remov);
@@ -132,23 +157,57 @@ public class SkinCommand {
 	private static void setNewProfileDatas(ApiCharacterValues character, PlayerEntity player)
 	{
 		var dts=ComponentManager.getPlayerDatas(player);
+
+		List<SkinLayerValue> lays=new ArrayList<>();
 		character.stats.points.forEach((k,v)-> dts.getStats().setLevel(k,v));
-		character.appearance.additional.forEach((k, v)->{
-			var ind=v.indexOf(':');
-			var path=v;
-			String space=Characters.MOD_ID;
-			if(ind>-1)
-			{
-				space=v.substring(0,ind);
-				path=v.substring(ind+1);
-			}
-			var cloth=ClothingLoader.instance.getCloth(new Identifier(space,k+"/"+path));
-			cloth.ifPresent(c->{
-				if(c.layer().isBaseLayer())
-					dts.getAppearence().setCloth(c);
+		for(SkinLayerValue layer : character.appearance.layers) {
+
+			var blayer=CharactersApi.bodyParts().getBodyLayer(layer.layer);
+			blayer.ifPresent(blay->{
+				if(blay.external())
+				{
+					var layerDef=ClothingLoader.instance.getLayer(layer.layer);
+					if(layerDef.isPresent())
+					{
+						var v=layer.getTexturePath();
+						var ind=v.indexOf(':');
+						var path=v;
+						String space= BodyPartsLoader.instance.getDefaultDomain();
+						if(ind>-1)
+						{
+							space=v.substring(0,ind);
+							path=v.substring(ind+1);
+						}
+						var cloth=ClothingLoader.instance.getCloth(new Identifier(space,path));
+						cloth.ifPresent(c->{
+							if(c.layer().isBaseLayer())
+								dts.getAppearence().setCloth(c);
+						});
+					}
+				}
+				else
+				{
+					lays.add(layer);
+				}
 			});
 
-		});
+		}
+		for(BodyLayerInfo value : CharactersApi.bodyParts().getBodyLayers().values()) {
+			boolean empty=true;
+			for(SkinLayerValue bodyLayer : lays) {
+				if(bodyLayer.layer.equals(value.id()))
+				{
+					empty=false;
+					break;
+				}
+			}
+			if(empty && !value.external() && !value.clearable())
+			{
+				lays.add(SkinLayerValue.createDefaultFor(value.id()));
+			}
+		}
+		character.appearance.layers=lays.toArray(new SkinLayerValue[0]);
+
 	}
 	private static int replaceExec(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
 		var entity = ctx.getSource().getPlayer();
@@ -166,9 +225,9 @@ public class SkinCommand {
 					if (t != null)
 						t.printStackTrace();
 					if (b.isPresent()) {
+						setNewProfileDatas(b.get(),finalEntity);
 						chs.replaceCharacter(chara, b.get());
 						chs.switchCharacter(chara);
-						setNewProfileDatas(b.get(),finalEntity);
 						if(ComponentManager.getPlayerDatas(finalEntity).getAppearence() instanceof PlayerAppearance ap)
 							ap.refreshSkinData();
 						Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(finalEntity.getGameProfile().getId()));
@@ -193,8 +252,8 @@ public class SkinCommand {
 				t.printStackTrace();
 			if (b.isPresent()) {
 				var chs = ComponentManager.getPlayerCharacter(player);
-				chs.switchCharacter(chs.addNewCharacter(b.get()));
 				setNewProfileDatas(b.get(),player);
+				chs.switchCharacter(chs.addNewCharacter(b.get()));
 				if(ComponentManager.getPlayerDatas(player).getAppearence() instanceof PlayerAppearance ap)
 					ap.refreshSkinData();
 				Channels.MAIN.serverHandle(player.getServer()).send(new CosmeticsPackets.RefreshSkin(player.getGameProfile().getId()));
@@ -211,15 +270,16 @@ public class SkinCommand {
 				t.printStackTrace();
 			if (b.isPresent()) {
 				var chs = ComponentManager.getPlayerCharacter(player);
+				setNewProfileDatas(b.get(),player);
 				var id=chs.getCurrentCharacterID();
 				if(id !=null)
 					chs.replaceCharacter(id, b.get());
 				else
 					id=chs.addNewCharacter(b.get());
 				chs.switchCharacter(id);
-				setNewProfileDatas(b.get(),player);
 				if(ComponentManager.getPlayerDatas(player).getAppearence() instanceof PlayerAppearance ap)
 					ap.refreshSkinData();
+
 				Channels.MAIN.serverHandle(player.getServer()).send(new CosmeticsPackets.RefreshSkin(player.getGameProfile().getId()));
 				return true;
 			} else {

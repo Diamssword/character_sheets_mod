@@ -1,6 +1,8 @@
 package com.diamssword.characters.api.appearence;
 
 import com.diamssword.characters.api.ICharacterStored;
+import com.diamssword.characters.api.http.ApiSkinValues;
+import com.diamssword.characters.api.http.SkinLayerValue;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
@@ -14,7 +16,7 @@ import java.util.Optional;
 
 public interface IPlayerAppearance extends ICharacterStored {
 
-
+	public ApiSkinValues getSkinDatas();
 	/**
 	 * Clone the data of a sourcePlayer, mostly used to render in-gui versions of the player model
 	 * @param sourcePlayer
@@ -32,7 +34,6 @@ public interface IPlayerAppearance extends ICharacterStored {
 	 * @param id
 	 */
 	public void lockCLoth(Cloth id);
-
 	/**
 	 * @return all owned cloths ids
 	 */
@@ -90,6 +91,27 @@ public interface IPlayerAppearance extends ICharacterStored {
 	 */
 	public void equipOutfit(int index);
 
+	/**
+	 * Save skin layers for future quick use in the character editor
+	 * @param guiId the id of the restricted gui used, this way layers for the 'makeup only editor' will be different than others
+	 * @param name the name of the save
+	 * @param index the slot index 0-6
+	 * @param layers the layers to save
+	 */
+	public void saveLayers(String guiId,String name, int index,SkinLayerValue[] layers);
+
+	/**
+	 * get a pair composed of the name and index of all saved layers
+	 * @param guiId the guiName used to find the specific save slots
+	 */
+	public List<Pair<String,Integer>> getSavedLayersLabels(String guiId);
+
+	/**
+	 * @param guiId  the guiName used to find the specific save slots
+	 * @param slot the index of the slot to retrieve
+	 * @return the Saved layers values
+	 */
+	public SkinLayerValue[] getSavedLayers(String guiId,int slot);
 	/**
 	 *
 	 * return a float value scaling the base player height of ~1.8 blocks so a scale of 0.5 would make the player 0.9 blocks tall!

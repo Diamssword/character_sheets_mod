@@ -4,6 +4,7 @@ import com.diamssword.characters.Characters;
 import com.diamssword.characters.api.ICharacterSheets;
 import com.diamssword.characters.api.ICharacterStored;
 import com.diamssword.characters.api.http.ApiCharacterValues;
+import com.diamssword.characters.api.http.SkinLayerValue;
 import com.diamssword.characters.network.SkinServerCache;
 import com.diamssword.characters.api.ComponentManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -71,9 +72,9 @@ public class PlayerCharacters implements ICharacterSheets {
 			});
 			if(oldChar!=null)
 				storedDatas.put(oldChar,oldCharSave);
-			SkinServerCache.get(player.getServer()).addToCache(player.getUuid(), car.base64Skin, car.base64SkinHead, car.appearance.slim);
 			ComponentManager.syncPlayerCharacter(player);
-			SkinServerCache.get(player.getServer()).setActiveCharacter(player, currentCharacter.stats.firstname + " " + currentCharacter.stats.lastname, currentCharacter.base64SkinHead);
+
+			SkinServerCache.get(player.getServer()).setActiveCharacter(player, currentCharacter.stats.firstname + " " + currentCharacter.stats.lastname, currentCharacter.appearance.layers,currentCharacter.appearance.slim);
 		}
 	}
 

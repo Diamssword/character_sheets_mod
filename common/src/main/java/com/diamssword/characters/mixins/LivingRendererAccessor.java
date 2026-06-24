@@ -9,4 +9,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface LivingRendererAccessor {
     @Accessor("model")
     public void setModel(EntityModel model);
+
 }

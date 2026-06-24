@@ -2,10 +2,9 @@ package com.diamssword.characters.client.gui.components;
 
 import com.diamssword.characters.Characters;
 import com.diamssword.characters.api.appearence.Cloth;
-import com.diamssword.characters.client.ClothingModel;
+import com.diamssword.characters.client.renders.ClothingModel;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.*;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ClothButtonComponent extends ButtonWidget {
+public class ClothButtonComponent extends ButtonWidget implements  ScrollableCloths.HoverableElement {
 	public static final Identifier TEXTURE=Characters.asRessource("textures/gui/cloth_bg.png");
 	private Cloth cloth;
 	private final ClothingModel<AbstractClientPlayerEntity> model = new ClothingModel<>(false, 0, false);
@@ -117,7 +116,7 @@ public class ClothButtonComponent extends ButtonWidget {
 	}
 	 @Override
 	 protected TooltipPositioner getTooltipPositioner() {
-		 return new ScrollTooltipPositioner(this);
+		 return new ScrollTooltipPositioner();
 	 }
 
 	@Override

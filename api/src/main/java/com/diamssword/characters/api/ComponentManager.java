@@ -6,6 +6,7 @@ public abstract class ComponentManager {
 	public static ComponentManager INSTANCE;
 	public abstract <T,A> T getComponent(A entity, Class<T> componentClass);
 	public abstract <T,A> void syncComponent(A entity, Class<T> componentClass);
+	public abstract <T,A> void syncComponent(A entity, Class<T> componentClass,A recipient);
 	// Convenience methods
 	public static IPlayerComponent getPlayerDatas(PlayerEntity player) {
 		return INSTANCE.getComponent(player,IPlayerComponent.class);

@@ -4,14 +4,12 @@ import com.diamssword.characters.api.CharactersApi;
 import com.diamssword.characters.api.ComponentManager;
 import com.diamssword.characters.client.ClientComesticsPacket;
 import com.diamssword.characters.client.Entities;
-import com.diamssword.characters.commands.ClothCommand;
-import com.diamssword.characters.commands.PStatsCommand;
-import com.diamssword.characters.commands.SkinCommand;
-import com.diamssword.characters.commands.WardrobeCommand;
+import com.diamssword.characters.commands.*;
 import com.diamssword.characters.config.Config;
 import com.diamssword.characters.config.ConfigManager;
 import com.diamssword.characters.implementations.CharactersApiImpl;
 import com.diamssword.characters.network.Channels;
+import com.diamssword.characters.network.SkinServerCache;
 import com.diamssword.characters.storage.*;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
@@ -21,6 +19,7 @@ import dev.architectury.utils.Env;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resource.ResourceType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
@@ -35,8 +34,10 @@ public final class Characters {
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static Config config;
     public static void init() {
+		config= ConfigManager.loadConfig();
         ReloadListenerRegistry.register(ResourceType.SERVER_DATA,ClothingLoader.instance, ClothingLoader.instance.getId());
         ReloadListenerRegistry.register(ResourceType.SERVER_DATA,ClassesLoader.instance, ClassesLoader.instance.getId());
+		ReloadListenerRegistry.register(ResourceType.SERVER_DATA,BodyPartsLoader.instance, BodyPartsLoader.instance.getId());
         ClassesLoader.initEvents();
         CharactersApi.instance=new CharactersApiImpl();
 
@@ -44,11 +45,14 @@ public final class Characters {
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_INVENTORY, InventorySaver::new,InventorySaver::serializer,InventorySaver::unserializer);
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_STATS, (p)-> ComponentManager.getPlayerDatas(p).getStats(), PlayerStats::serializer,PlayerStats::unserializer);
 
-        config= ConfigManager.loadConfig();
         Channels.init();
         Events.init();
         if(Platform.getEnvironment()== Env.CLIENT)
             initClient();
+		else if(Platform.getEnvironment()==Env.SERVER)
+		{
+			Utils.skinServerCacheSupplier= (s)-> SkinServerCache.get(s);
+		}
         registerCommand("character", SkinCommand::register);
         registerCommand("cloths", ClothCommand::register);
         registerCommand("playerskills", PStatsCommand::register);

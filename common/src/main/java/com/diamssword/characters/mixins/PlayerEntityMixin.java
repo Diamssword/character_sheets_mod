@@ -1,10 +1,20 @@
 package com.diamssword.characters.mixins;
 
+import com.diamssword.characters.Utils;
 import com.diamssword.characters.api.ComponentManager;
+import com.diamssword.characters.client.SkinsLoader;
+import com.diamssword.characters.network.SkinServerCache;
+import com.mojang.authlib.GameProfile;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.scoreboard.Team;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -27,6 +37,19 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 
 	}
+
+	@Shadow
+	protected abstract MutableText addTellClickEvent(MutableText component);
+
+	@Inject(method = "getDisplayName", at = @At("HEAD"), cancellable = true)
+	private void nick(CallbackInfoReturnable<Text> cir) {
+		var sk=Utils.getSkinServerCacheSideSafe((PlayerEntity) (Object) this);
+		sk.ifPresent(s->{
+			MutableText mutableText = Team.decorateName(this.getScoreboardTeam(), Text.literal(s.characterName()));
+			cir.setReturnValue(this.addTellClickEvent(mutableText));
+		});
+	}
+	
 	@Inject(at = @At("HEAD"), method = "getActiveEyeHeight", cancellable = true)
 	public void getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions, CallbackInfoReturnable<Float> cir) {
 		if (pose == EntityPose.STANDING)
@@ -35,4 +58,5 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			cir.setReturnValue(dimensions.height * 0.85f);
 
 	}
+
 }

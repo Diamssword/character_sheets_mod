@@ -1,5 +1,7 @@
 package com.diamssword.characters.network.packets;
 
+import com.diamssword.characters.client.SkinsLoader;
+import com.diamssword.characters.storage.BodyPartsLoader;
 import com.diamssword.characters.storage.ClassesLoader;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.client.CharactersClient;
@@ -14,6 +16,8 @@ public class DictionaryPackets {
 	}
 	public record ClassesList(ClassesLoader loader) {
 	}
+	public record BodyPartList(BodyPartsLoader loader) {
+	}
 	public static void init() {
 
 		Channels.MAIN.registerClientbound(ClothingList.class, (msg, ctx) -> {
@@ -23,6 +27,13 @@ public class DictionaryPackets {
 		});
 		Channels.MAIN.registerClientbound(ClassesList.class, (msg, ctx) -> {
 			ClassesLoader.instance = msg.loader;
+		});
+		Channels.MAIN.registerClientbound(BodyPartList.class, (msg, ctx) -> {
+			BodyPartsLoader.instance = msg.loader;
+			if(Platform.getEnvironment()==Env.CLIENT) {
+				reloadClientModel();
+				SkinsLoader.clientSkinCache.clearCache();
+			}
 		});
 	}
 	@Environment(EnvType.CLIENT)

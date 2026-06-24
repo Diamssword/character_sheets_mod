@@ -16,9 +16,15 @@ import java.util.function.Function;
 public class CharactersApiImpl extends CharactersApi {
 	private final CharactersClothingApiImpl cloth=new CharactersClothingApiImpl();
 	private final CharactersStatsApiImpl stats=new CharactersStatsApiImpl();
+	private final BodyPartsApiImpl body=new BodyPartsApiImpl();
 	@Override
 	protected CharacterClothingApi getClothing() {
 		return cloth;
+	}
+
+	@Override
+	protected BodyPartsApi getBodyParts() {
+		return body;
 	}
 
 	@Override

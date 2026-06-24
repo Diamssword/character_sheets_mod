@@ -7,10 +7,12 @@
     "EntityRenderDispatcherAccessor",
     "LivingRendererAccessor",
     "PlayerListEntryMixin",
+    "PlayerListHudMixin",
     "PlayerRenderMixin",
     "PlayerSkinProviderAccessor"
   ],
   "mixins": [
+    "ClientConnectionMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {

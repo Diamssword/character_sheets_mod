@@ -1,5 +1,6 @@
 package com.diamssword.characters.client.gui.components;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -38,12 +39,11 @@ public class PlayerComponent extends BaseComponent {
 		final var client = MinecraftClient.getInstance();
 		this.dispatcher = client.getEntityRenderDispatcher();
 		this.entityBuffers = client.getBufferBuilders().getEntityVertexConsumers();
-
 		this.entity = entity;
 	}
 
 	public PlayerComponent(Sizing sizingX,Sizing sizingY) {
-		this(sizingX,sizingY, new OtherClientPlayerEntity(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getGameProfile()) {
+		this(sizingX,sizingY, new OtherClientPlayerEntity(MinecraftClient.getInstance().world, new GameProfile(MinecraftClient.getInstance().player.getGameProfile().getId(),"")) {
 			@Override
 			public boolean isSpectator() {
 				return false;

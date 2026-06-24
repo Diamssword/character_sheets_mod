@@ -1,8 +1,8 @@
 package com.diamssword.characters.client.gui.components;
 
-import com.diamssword.characters.api.appearence.Cloth;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ScrollableWidget;
 import net.minecraft.text.Text;
 
@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class ScrollableCloths extends ScrollableWidget {
+public class ScrollableCloths<T,U extends ButtonWidget & ScrollableCloths.HoverableElement> extends ScrollableWidget {
 
-	public List<ClothButtonComponent> components=new ArrayList<>();
+	public List<U> components=new ArrayList<>();
+	private int colsC=6;
+	private int linesC=3;
 	public ScrollableCloths(int x, int y, int width, int height) {
 		super(x, y, width, height, Text.literal(""));
 	}
@@ -20,35 +22,42 @@ public class ScrollableCloths extends ScrollableWidget {
 	public double getScrollY() {
 		return super.getScrollY();
 	}
-	public void setCloths(List<Cloth> cloths, Function<Cloth,ClothButtonComponent> builder)
+	public ScrollableCloths<T, U> setGridSize(int cols, int lines)
+	{
+	this.colsC=cols;
+	this.linesC=lines;
+	return this;
+	}
+	public void setCloths(List<T> parts, Function<T,U> builder)
 	{
 		this.setScrollY(0);
 		components.clear();
-			for(var i=0;i<cloths.size();i++)
+			for(var i=0;i<parts.size();i++)
 			{
-				var b=builder.apply(cloths.get(i));
+				var b=builder.apply(parts.get(i));
 				components.add(b);
-				var d=(width-2)/6;
-				var h=(height-2)/3;
+				var d=(width-2)/colsC;
+				var h=(height-2)/linesC;
 				b.setWidth(d);
 				b.setHeight(h);
-				b.setX(this.getX()+d*(i%6)+2);
-				b.setY(this.getY()+h*(i/6)+2);
+				b.setX(this.getX()+d*(i%colsC)+2);
+				b.setY(this.getY()+h*(i/colsC)+2);
 			}
 	}
+
 	@Override
 	protected void drawBox(DrawContext context, int x, int y, int width, int height) {
 		super.drawBox(context,x,y,width,height);
 	}
 	@Override
 	protected int getContentsHeight() {
-		var d=components.size()/6;
-		if(components.size()%6>0)
+		var d=components.size()/colsC;
+		if(components.size()%colsC>0)
 			d=d+1;
-		return d*(height/3);
+		return d*(height/linesC);
 	}
 
-	private ClothButtonComponent getMouseComponentIndex(double mouseX, double mouseY)
+	private U getMouseComponentIndex(double mouseX, double mouseY)
 	{
 		if(this.isWithinBounds(mouseX, mouseY))
 		{
@@ -70,7 +79,7 @@ public class ScrollableCloths extends ScrollableWidget {
 	}
 	@Override
 	protected double getDeltaYPerScroll() {
-		return height/6d;
+		return height/(double)colsC;
 	}
 
 	@Override
@@ -87,7 +96,12 @@ public class ScrollableCloths extends ScrollableWidget {
 
 	}
 
-	public List<ClothButtonComponent> children() {
+	public List<U> children() {
 		return components;
+	}
+
+	public static interface HoverableElement {
+		public void setHover(boolean hovered);
+		public void setHeight(int height);
 	}
 }

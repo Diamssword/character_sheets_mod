@@ -21,11 +21,15 @@ public abstract class CharactersApi {
 	public static CharacterStatsApi stats(){
 		return instance.getStats();
 	}
+	public static BodyPartsApi bodyParts(){
+		return instance.getBodyParts();
+	}
 	@Environment(EnvType.CLIENT)
 	public static CharacterSkinApi skin(){
 		return instance.getSkins();
 	}
 	abstract protected CharacterClothingApi getClothing();
+	abstract protected BodyPartsApi getBodyParts();
 	abstract protected CharacterStatsApi getStats();
 	@Environment(EnvType.CLIENT)
 	abstract protected CharacterSkinApi getSkins();

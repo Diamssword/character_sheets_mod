@@ -24,7 +24,10 @@ public class PlayerDatasImpl implements IPlayerComponent, ComponentV3, ServerTic
 	}
 
 
-
+	@Override
+	public boolean shouldSyncWith(ServerPlayerEntity player) {
+		return true;
+	}
 	@Override
 	public void serverTick() {
 		this.appearance.tick();

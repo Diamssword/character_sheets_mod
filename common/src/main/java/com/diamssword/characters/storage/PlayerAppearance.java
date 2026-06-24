@@ -6,6 +6,7 @@ import com.diamssword.characters.api.appearence.IPlayerAppearance;
 import com.diamssword.characters.api.appearence.LayerDef;
 import com.diamssword.characters.api.http.ApiCharacterValues;
 import com.diamssword.characters.api.http.ApiSkinValues;
+import com.diamssword.characters.api.http.SkinLayerValue;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -23,6 +24,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 	private final PlayerEntity parent;
 	private final List<Identifier> unlockedCloths = new ArrayList<>();
 	private final SavedOutfit[] outfits = new SavedOutfit[7];
+	private final Map<String,SavedSkinLayers[]> savedLayers=new HashMap<>();
 	private ApiSkinValues skinDatas;
 
 	public PlayerAppearance(PlayerEntity parent) {
@@ -53,6 +55,7 @@ public class PlayerAppearance implements IPlayerAppearance {
 
 		}
 	}
+
 
 	@Override
 	public void clonePlayerAppearance(PlayerEntity sourcePlayer) {
@@ -176,12 +179,42 @@ public class PlayerAppearance implements IPlayerAppearance {
 		}
 		return res;
 	}
-@Override
+	@Override
 	public void equipOutfit(int index) {
 		if (index < this.outfits.length && index >= 0 && this.outfits[index] != null) {
 
 			this.outfits[index].equipe();
 		}
+	}
+
+	@Override
+	public void saveLayers(String guiId, String name, int index, SkinLayerValue[] layers) {
+		var ls=this.savedLayers.computeIfAbsent(guiId,k->new SavedSkinLayers[7]);
+		ls[index]=new SavedSkinLayers(name,this);
+		ls[index].populate(layers);
+	}
+
+	@Override
+	public List<Pair<String, Integer>> getSavedLayersLabels(String guiId) {
+		var arr=this.savedLayers.get(guiId);
+		if(arr==null)
+			return List.of();
+		var ls=new ArrayList<Pair<String,Integer>>();
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i]!=null)
+				ls.add(new Pair<>(arr[i].name,i));
+		}
+		return ls;
+	}
+
+	@Override
+	public SkinLayerValue[] getSavedLayers(String guiId, int slot) {
+		var arr=this.savedLayers.get(guiId);
+		if(arr!=null && arr[slot]!=null)
+		{
+			return arr[slot].getLayers();
+		}
+		return new SkinLayerValue[0];
 	}
 
 	@Override
@@ -222,6 +255,23 @@ public class PlayerAppearance implements IPlayerAppearance {
 				}
 			}
 		}
+		if (tag.contains("savedLayers")) {
+			var mp=tag.getCompound("savedLayers");
+			this.savedLayers.clear();
+			for(String key : mp.getKeys()) {
+				var ls=mp.getList(key,NbtElement.COMPOUND_TYPE);
+				var arr=new SavedSkinLayers[7];
+				for(int i = 0; i <ls.size() ; i++) {
+					if (i < arr.length) {
+						if(ls.getCompound(i).isEmpty())
+							arr[i]=null;
+						else
+							arr[i] = new SavedSkinLayers("", this).fromNBT(ls.getCompound(i));
+					}
+				}
+				this.savedLayers.put(key,arr);
+			}
+		}
 		fillForcedLayers();
 	}
 
@@ -246,6 +296,18 @@ public class PlayerAppearance implements IPlayerAppearance {
 			else
 				outLs.add(new NbtCompound());
 		}
+		var svLMap=new NbtCompound();
+		this.savedLayers.forEach((k,v)->{
+			var ls = new NbtList();
+			for(SavedSkinLayers savedSkinLayers : v) {
+				if(savedSkinLayers!=null)
+					ls.add(savedSkinLayers.toNBT());
+				else
+					ls.add(new NbtCompound());
+			}
+			svLMap.put(k,ls);
+		});
+		tag.put("savedLayers",svLMap);
 		tag.put("outfits", outLs);
 		return tag;
 	}
@@ -294,6 +356,45 @@ public class PlayerAppearance implements IPlayerAppearance {
 				ClothingLoader.instance.getCloth(v).ifPresent(parent::equipCloth);
 			});
 
+		}
+	}
+	public static class SavedSkinLayers {
+		public SkinLayerValue[] layers=new SkinLayerValue[0];
+		public String name;
+		public final PlayerAppearance parent;
+
+		public SavedSkinLayers(String name,PlayerAppearance parent) {
+			this.name = name;
+			this.parent=parent;
+		}
+
+		public void populate(SkinLayerValue[] layers) {
+			this.layers=layers;
+		}
+
+		public SavedSkinLayers fromNBT(NbtCompound tag) {
+			this.name=tag.getString("name");
+			var ls = tag.getList("layers", NbtElement.COMPOUND_TYPE);
+			this.layers=new SkinLayerValue[ls.size()];
+			for(int i = 0; i < ls.size(); i++) {
+				this.layers[i]=new SkinLayerValue().fromNBT(ls.getCompound(i));
+			}
+			return this;
+		}
+
+		public NbtCompound toNBT() {
+			var res = new NbtCompound();
+			res.putString("name", this.name);
+			var ls = new NbtList();
+			for(SkinLayerValue layer : this.layers) {
+				ls.add(layer.toNBT());
+			}
+			res.put("layers", ls);
+			return res;
+		}
+
+		public SkinLayerValue[] getLayers() {
+			return layers;
 		}
 	}
 

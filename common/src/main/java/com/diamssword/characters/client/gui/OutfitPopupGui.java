@@ -32,7 +32,6 @@ public class OutfitPopupGui extends Screen {
         addDrawableChild(new ButtonWidget.Builder(Text.translatable(Characters.MOD_ID+".wardrobe.outfit_create"),(b)->{
             if(!text.getText().isEmpty())
             {
-                System.out.println(text.getText());
                 Channels.MAIN.clientHandle().send(new CosmeticsPackets.SaveOutfit(text.getText(),index));
                 ComponentManager.getPlayerDatas(client.player).getAppearence().saveOutfit(text.getText(),index);
                 MinecraftClient.getInstance().setScreen(parent);

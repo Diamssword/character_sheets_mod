@@ -1,7 +1,10 @@
 package com.diamssword.characters.client;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.api.ComponentManager;
 import com.diamssword.characters.mixins.EntityRenderDispatcherAccessor;
+import com.diamssword.characters.network.SkinServerCache;
+import com.diamssword.characters.network.packets.CosmeticsPackets;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

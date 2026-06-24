@@ -1,9 +1,17 @@
 package com.diamssword.characters;
 
+import com.diamssword.characters.api.PlayerSkinInfos;
+import com.diamssword.characters.network.SkinServerCache;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+
+import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class Utils {
 
+	public static Function<MinecraftServer,SkinServerCache> skinServerCacheSupplier;
 	public static UUID parseUUID(String uuid) {
 		if (uuid.contains("-"))
 			return UUID.fromString(uuid);
@@ -12,5 +20,10 @@ public class Utils {
 
 	public static String UUIDToString(UUID uuid) {
 		return uuid.toString().replaceAll("-", "");
+	}
+
+	public static Optional<PlayerSkinInfos> getSkinServerCacheSideSafe(PlayerEntity player)
+	{
+		return skinServerCacheSupplier.apply(player.getServer()).getSkin(player.getUuid());
 	}
 }

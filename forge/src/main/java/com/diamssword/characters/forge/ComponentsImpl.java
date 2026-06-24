@@ -37,5 +37,15 @@ public class ComponentsImpl extends ComponentManager {
 				pl.getCapability(CapabilityEvents.PLAYER_CHARACTERS).ifPresent(v->ModNetworking.syncToClient(pl,new SyncPlayerStatsPacket(pl,CapabilityEvents.CHARACTERS,true)));
 		}
 	}
-
+	@Override
+	public <T, A> void syncComponent(A entity, Class<T> componentClass, A recipient) {
+		if(entity instanceof ServerPlayerEntity pl && recipient instanceof ServerPlayerEntity rec)
+		{
+			if( componentClass== IPlayerComponent.class) {
+				pl.getCapability(CapabilityEvents.PLAYER_APPEARANCE).ifPresent(v -> ModNetworking.syncToClient(rec, new SyncPlayerStatsPacket(pl, CapabilityEvents.APPEARANCE, false)));
+			}
+			if( componentClass== ICharacterSheets.class)
+				pl.getCapability(CapabilityEvents.PLAYER_CHARACTERS).ifPresent(v->ModNetworking.syncToClient(pl,new SyncPlayerStatsPacket(pl,CapabilityEvents.CHARACTERS,true)));
+		}
+	}
 }

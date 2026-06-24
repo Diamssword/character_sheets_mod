@@ -1,7 +1,10 @@
 package com.diamssword.characters.network;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.api.PlayerSkinInfos;
+import com.diamssword.characters.api.http.SkinLayerValue;
 import com.diamssword.characters.network.packets.GuiPackets;
+import com.diamssword.characters.storage.BodyPartsLoader;
 import com.diamssword.characters.storage.ClassesLoader;
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.network.packets.CosmeticsPackets;
@@ -18,6 +21,9 @@ public class Channels {
 		MAIN.init();
 		PacketBufSerializer.register(ClothingLoader.class, ClothingLoader::serializer, ClothingLoader::unserializer);
 		PacketBufSerializer.register(ClassesLoader.class, ClassesLoader::serializer, ClassesLoader::unserializer);
+		PacketBufSerializer.register(BodyPartsLoader.class, BodyPartsLoader::serializer, BodyPartsLoader::unserializer);
+		PacketBufSerializer.register(PlayerSkinInfos.class,(a,b)->a.writeNbt(b.toNBT()), a->PlayerSkinInfos.fromNBT(a.readNbt()));
+		PacketBufSerializer.register(SkinLayerValue.class,(a,b)->b.toPacket(a), SkinLayerValue::fromPacket);
 		SkinServerCache.init();
 		CosmeticsPackets.init();
 		DictionaryPackets.init();

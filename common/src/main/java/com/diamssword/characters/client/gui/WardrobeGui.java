@@ -70,7 +70,7 @@ public class WardrobeGui extends Screen {
 		var playerComp =addComponent(new PlayerComponent(Sizing.fill(40),Sizing.content(0))).scaleToFit(true).lookAtCursor(true);
 		int rightX=(int) (this.width*0.55f);
 		int rightW=(int) (this.width*0.4f);
-		var scroll=this.addDrawableChild(new ScrollableCloths(rightX, (int) (this.height*0.2f), rightW, (int) (this.height*0.7f)));
+		var scroll=this.addDrawableChild(new ScrollableCloths<Cloth,ClothButtonComponent>(rightX, (int) (this.height*0.2f), rightW, (int) (this.height*0.7f)));
 		var search=new TextFieldWidget(client.textRenderer,rightX, (int) (this.height*0.2f)-20,rightW,18,Text.translatable(Characters.MOD_ID+".wardrobe.search"));
 		var slider= new SliderWidget(0,0,0,20,Text.literal("0°"),0.5f) {
 			@Override
@@ -151,7 +151,7 @@ public class WardrobeGui extends Screen {
 			bts.add(bt);
 		}
 	}
-	private void loadCloths(ScrollableCloths layout, PlayerComponent playerComp, String filter) {
+	private void loadCloths(ScrollableCloths<Cloth,ClothButtonComponent> layout, PlayerComponent playerComp, String filter) {
 		lastSearch = filter;
 		var player = playerComp.entity();
 		var dt = ComponentManager.getPlayerDatas(player);
@@ -192,7 +192,7 @@ public class WardrobeGui extends Screen {
 		updateSelected(layout, equip);
 	}
 
-	private void updateSelected(ScrollableCloths layout, List<Cloth> equipped) {
+	private void updateSelected(ScrollableCloths<Cloth,ClothButtonComponent> layout, List<Cloth> equipped) {
 		for (ClothButtonComponent cb : layout.children()) {
 				cb.setSelected(equipped.stream().anyMatch(v -> v.id().equals(cb.getCloth().id())));
 			}

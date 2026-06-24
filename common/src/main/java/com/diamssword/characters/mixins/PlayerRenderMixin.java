@@ -2,8 +2,8 @@ package com.diamssword.characters.mixins;
 
 import com.diamssword.characters.storage.ClothingLoader;
 import com.diamssword.characters.api.appearence.LayerDef;
-import com.diamssword.characters.client.ClothingLayer;
-import com.diamssword.characters.client.CustomPlayerModel;
+import com.diamssword.characters.client.renders.ClothingLayer;
+import com.diamssword.characters.client.renders.CustomPlayerModel;
 import com.diamssword.characters.client.Entities;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -12,10 +12,13 @@ import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
@@ -41,11 +44,6 @@ public abstract class PlayerRenderMixin extends LivingEntityRenderer<AbstractCli
 	@Inject(at = @At("TAIL"), method = "scale(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/client/util/math/MatrixStack;F)V")
 	protected void scale(LivingEntity abstractClientPlayerEntity, MatrixStack matrixStack, float f, CallbackInfo info) {
 		CustomPlayerModel.scale(abstractClientPlayerEntity, matrixStack, f, info);
-//        float g = 0.9375F;
-		//var comp=abstractClientPlayerEntity.getComponent(Components.PLAYER_DATA);
-
-
-		//  matrixStack.scale(g*comp.appearance.width, g*comp.appearance.height, g*comp.appearance.width);
 	}
 
 

@@ -13,6 +13,6 @@ import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 public interface CharacterSkinApi {
-	public void getHeadTexture(UUID playerID, Consumer<Identifier> callback);
-	public CompletableFuture<Map<UUID, PlayerPresence>> requestPlayerProfiles(String query);
+	public void getPlayerTexture(UUID playerID, Consumer<Identifier> callback);
+	public CompletableFuture<Map<UUID, PlayerSkinInfos>> requestPlayerProfiles(String query);
 }

@@ -36,4 +36,17 @@ public class ComponentsImpl extends ComponentManager {
 		}
 	}
 
+	@Override
+	public <T, A> void syncComponent(A entity, Class<T> componentClass, A recipient) {
+		if(entity instanceof ServerPlayerEntity pl && recipient instanceof ServerPlayerEntity rec)
+		{
+
+
+			if( componentClass== IPlayerComponent.class)
+				Components.PLAYER_DATAS.syncWith(rec,pl.asComponentProvider());
+			if( componentClass== ICharacterSheets.class)
+				Components.PLAYER_CHARACTERS.syncWith(rec,pl.asComponentProvider());
+		}
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.diamssword.characters.client;
 
 import com.diamssword.characters.Characters;
+import com.diamssword.characters.client.renders.CustomPlayerModel;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
