@@ -44,7 +44,6 @@ public final class Characters {
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_APPEARANCE, (p)-> ComponentManager.getPlayerDatas(p).getAppearence(), PlayerAppearance::serializer,PlayerAppearance::unserializer);
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_INVENTORY, InventorySaver::new,InventorySaver::serializer,InventorySaver::unserializer);
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_STATS, (p)-> ComponentManager.getPlayerDatas(p).getStats(), PlayerStats::serializer,PlayerStats::unserializer);
-
         Channels.init();
         Events.init();
         if(Platform.getEnvironment()== Env.CLIENT)

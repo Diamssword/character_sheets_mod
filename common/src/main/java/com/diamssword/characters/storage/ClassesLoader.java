@@ -106,8 +106,11 @@ public class ClassesLoader implements SynchronousResourceReloader {
 	@Override
 	public void reload(ResourceManager manager) {
 		roles.clear();
-		var id = Characters.asRessource("skills.json");
+		var id = new Identifier(BodyPartsLoader.instance.getDefaultDomain(),"skills.json");
+
 		var file = manager.getResource(id);
+		if(file.isEmpty())
+			file = manager.getResource(Characters.asRessource("skills.jon"));
 		if (file.isPresent()) {
 			try {
 				BufferedReader reader = file.get().getReader();

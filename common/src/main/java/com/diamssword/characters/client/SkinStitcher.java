@@ -15,6 +15,14 @@ import java.io.*;
 public class SkinStitcher {
 
 	static MinecraftClient client=MinecraftClient.getInstance();
+	public static BufferedImage convertToHead(BufferedImage fullSkin)
+	{
+		BufferedImage main=new BufferedImage((int) (fullSkin.getWidth()*0.125), (int) (fullSkin.getHeight()*0.125),BufferedImage.TYPE_INT_ARGB);
+		var g=main.createGraphics();
+		g.drawImage(fullSkin,0,0, main.getWidth(),main.getHeight(), (int) (fullSkin.getWidth()*0.125), (int) (fullSkin.getHeight()*0.125), (int) (fullSkin.getWidth()*0.25), (int) (fullSkin.getHeight()*0.25), null);
+		g.dispose();
+		return main;
+	}
 	public static BufferedImage createSkin(SkinLayerValue[] layers) throws IOException {
 		BufferedImage main=new BufferedImage(BodyPartsLoader.instance.getSkinResolution(),BodyPartsLoader.instance.getSkinResolution(),BufferedImage.TYPE_INT_ARGB);
 		var g=main.createGraphics();

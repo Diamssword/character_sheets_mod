@@ -15,9 +15,12 @@ import java.util.function.Consumer;
 public class CharacterSkinImpl implements CharacterSkinApi {
 	@Override
 	public void getPlayerTexture(UUID playerID, Consumer<Identifier> callback) {
+		SkinsLoader.getSkinTexture(playerID,callback);
+	}
+	@Override
+	public void getPlayerHeadIconTexture(UUID playerID, Consumer<Identifier> callback) {
 		SkinsLoader.getHeadTexture(playerID,callback);
 	}
-
 	@Override
 	public CompletableFuture<Map<UUID, PlayerSkinInfos>> requestPlayerProfiles(String query) {
 		return SkinsLoader.requestPlayerProfiles(query);

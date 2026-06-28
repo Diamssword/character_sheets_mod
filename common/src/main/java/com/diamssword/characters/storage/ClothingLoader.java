@@ -184,8 +184,10 @@ public class ClothingLoader implements SynchronousResourceReloader {
 		cloths = new HashMap<>();
 		collections.clear();
 		layers.clear();
-		var idL = Characters.asRessource("layers.json");
+		var idL = new Identifier(BodyPartsLoader.instance.getDefaultDomain(),"layers.json");
 		var fileL = manager.getResource(idL);
+		if(fileL.isEmpty())
+			fileL = manager.getResource(Characters.asRessource("layers.jon"));
 		if (fileL.isPresent()) {
 			try {
 				BufferedReader reader = fileL.get().getReader();

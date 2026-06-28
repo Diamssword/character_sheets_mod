@@ -27,8 +27,8 @@ import java.util.function.Consumer;
 public class SkinsLoader {
 	public static final SkinServerCache clientSkinCache = new SkinServerCache();
 	private final Set<UUID> needReload = new HashSet<>();
+	private final Set<UUID> needReloadHead = new HashSet<>();
 	private final Set<UUID> requested = new HashSet<>();
-	private final Set<UUID> requestedOfflineHead = new HashSet<>();
 	private final File cacheDir;
 	public static SkinsLoader instance = new SkinsLoader();
 
@@ -36,13 +36,19 @@ public class SkinsLoader {
 		return needReload.contains(playerid);
 	}
 
-	public boolean markReload(UUID playerid, boolean needed) {
+	public boolean markReload(UUID playerid, boolean needed,boolean head) {
 		if (needed) {
 			this.requested.remove(playerid);
 			this.needReload.add(playerid);
+			this.needReloadHead.add(playerid);
 
 		} else {
-			if (needReload.contains(playerid)) {
+			if(head && needReloadHead.contains(playerid))
+			{
+				this.needReloadHead.remove(playerid);
+				return true;
+			}
+			else if (!head && needReload.contains(playerid)) {
 				this.needReload.remove(playerid);
 				return true;
 			}
@@ -54,13 +60,17 @@ public class SkinsLoader {
 		cacheDir = ((PlayerSkinProviderAccessor) MinecraftClient.getInstance().getSkinProvider()).getCacheDir();
 	}
 
+	public static void getSkinTexture(UUID playerID, Consumer<Identifier> callback) {
+
+		instance.loadSkin(playerID,false, (a, b, c) -> callback.accept(b));
+	}
 	public static void getHeadTexture(UUID playerID, Consumer<Identifier> callback) {
 
-			instance.loadSkin(playerID, (a, b, c) -> callback.accept(b));
+			instance.loadSkin(playerID,true, (a, b, c) -> callback.accept(b));
 	}
 
-	public void loadSkin(UUID userid, SkinTextureAvailableCallback callback) {
-		var force = markReload(userid, false);
+	public void loadSkin(UUID userid,boolean isHead, SkinTextureAvailableCallback callback) {
+		var force = markReload(userid, false,isHead);
 		Runnable runnable = () -> {
 			MinecraftClient.getInstance().execute(() -> {
 				RenderSystem.recordRenderCall(() -> {
@@ -70,7 +80,7 @@ public class SkinsLoader {
 						var map1 = new HashMap<String, String>();
 						map1.put("slim", Boolean.toString(skin.get().slim()));
 						map1.put("displayname",skin.get().characterName());
-						this.loadSkin(new LayerBasedMinecraftProfileTexture(skin.get().layers(), map1), callback, force);
+						this.loadSkin(new LayerBasedMinecraftProfileTexture(skin.get().layers(), map1), callback, force,isHead);
 
 					} else {
 						if (!requested.contains(userid)) {
@@ -85,19 +95,19 @@ public class SkinsLoader {
 	}
 
 	public void loadSkin(GameProfile profile, SkinTextureAvailableCallback callback) {
-		this.loadSkin(profile.getId(),callback);
+		this.loadSkin(profile.getId(),false,callback);
 	}
 
-	private Identifier loadSkin(LayerBasedMinecraftProfileTexture profileTexture, @Nullable SkinTextureAvailableCallback callback, boolean force) {
+	private Identifier loadSkin(LayerBasedMinecraftProfileTexture profileTexture, @Nullable SkinTextureAvailableCallback callback, boolean force,boolean head) {
 		String string = Hashing.sha1().hashUnencodedChars(profileTexture.getHash()).toString();
-		Identifier identifier = new Identifier("skins/" + string);
+		Identifier identifier = new Identifier((head?"heads/":"skins/") + string);
 		AbstractTexture abstractTexture = MinecraftClient.getInstance().getTextureManager().getOrDefault(identifier, MissingSprite.getMissingSpriteTexture());
 		if (force || abstractTexture == MissingSprite.getMissingSpriteTexture()) {
 			File file = new File(cacheDir, string.length() > 2 ? string.substring(0, 2) : "xx");
-			File file2 = new File(file, string);
+			File file2 = new File(file, string+(head?"h":"s"));
 			if (force && file2.exists())
 				file2.delete();
-			LayerBasedPlayerSkinTexture playerSkinTexture = new LayerBasedPlayerSkinTexture(file2, profileTexture.getData(), DefaultSkinHelper.getTexture(), () -> {
+			LayerBasedPlayerSkinTexture playerSkinTexture = new LayerBasedPlayerSkinTexture(file2, profileTexture.getData(), DefaultSkinHelper.getTexture(),head, () -> {
 				if (callback != null) {
 					callback.onSkinTextureAvailable(MinecraftProfileTexture.Type.SKIN, identifier, profileTexture);
 				}

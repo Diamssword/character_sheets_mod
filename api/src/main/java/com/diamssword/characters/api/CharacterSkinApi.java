@@ -14,5 +14,6 @@ import java.util.function.Consumer;
 @Environment(EnvType.CLIENT)
 public interface CharacterSkinApi {
 	public void getPlayerTexture(UUID playerID, Consumer<Identifier> callback);
+	public void getPlayerHeadIconTexture(UUID playerID, Consumer<Identifier> callback);
 	public CompletableFuture<Map<UUID, PlayerSkinInfos>> requestPlayerProfiles(String query);
 }

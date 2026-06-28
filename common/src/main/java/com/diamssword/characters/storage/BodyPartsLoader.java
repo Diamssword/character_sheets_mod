@@ -168,10 +168,13 @@ public class BodyPartsLoader implements SynchronousResourceReloader {
 	}
 	@Override
 	public void reload(ResourceManager manager) {
+		LOGGER.error("reload parts");
 		skinParts.clear();
 		layers.clear();
-		var idL = Characters.asRessource("body_layers.json");
+		var idL = new Identifier(this.getDefaultDomain(),"body_layers.json");
 		var fileL = manager.getResource(idL);
+		if(fileL.isEmpty())
+			fileL = manager.getResource(Characters.asRessource("body_layers.jon"));
 		if (fileL.isPresent()) {
 			try {
 				try(BufferedReader reader = fileL.get().getReader()) {
@@ -184,10 +187,11 @@ public class BodyPartsLoader implements SynchronousResourceReloader {
 				LOGGER.error("Couldn't parse data file {} from {}", idL, getName(), exception);
 			}
 		}
-
-		var idL1 = Characters.asRessource("body_parts.json");
+		var idL1 = new Identifier(this.getDefaultDomain(),"body_parts.json");
 
 		var fileL1 = manager.getResource(idL1);
+		if(fileL1.isEmpty())
+			fileL1 = manager.getResource(Characters.asRessource("body_parts.jon"));
 		if (fileL1.isPresent()) {
 			try {
 				try(BufferedReader reader = fileL1.get().getReader()) {
@@ -212,7 +216,6 @@ public class BodyPartsLoader implements SynchronousResourceReloader {
 	}
 
 	public static void serializer(PacketByteBuf write, BodyPartsLoader val) {
-
 		NbtList lays = new NbtList();
 		NbtList list = new NbtList();
 		val.layers.forEach((u,v)-> lays.add(v.toNBT()));

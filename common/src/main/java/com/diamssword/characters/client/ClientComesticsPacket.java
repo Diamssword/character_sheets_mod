@@ -29,11 +29,11 @@ public class ClientComesticsPacket {
 		Utils.skinServerCacheSupplier=(s)->SkinsLoader.clientSkinCache;
 		Channels.MAIN.registerClientbound(CosmeticsPackets.RefreshSkin.class, (message, access) -> {
 			SkinsLoader.clientSkinCache.removeFromCache(message.player());
-			SkinsLoader.instance.markReload(message.player(), true);
+			SkinsLoader.instance.markReload(message.player(), true,false);
 		});
 		Channels.MAIN.registerClientbound(SkinServerCache.SendPlayerInfos.class, (msg, ctx) -> {
 			SkinsLoader.clientSkinCache.setActiveCharacter(msg.player(),msg.infos().username(), msg.infos().characterName(),msg.infos().layers(),msg.infos().slim());
-			SkinsLoader.instance.markReload(msg.player(), true);
+			SkinsLoader.instance.markReload(msg.player(), true,false);
 		});
 		Channels.MAIN.registerClientbound(SkinServerCache.SendPlayerMatchInfos.class, (msg, ctx) -> {
 			if (PlayerProfilesRequestCallback != null)

@@ -33,12 +33,14 @@ public class LayerBasedPlayerSkinTexture extends ResourceTexture {
 	private final Runnable loadedCallback;
 	@Nullable
 	private CompletableFuture<?> loader;
+	private final boolean head;
 	private boolean loaded;
 
-	public LayerBasedPlayerSkinTexture(@Nullable File cacheFile, SkinLayerValue[] layers, Identifier fallbackSkin, @Nullable Runnable callback) {
+	public LayerBasedPlayerSkinTexture(@Nullable File cacheFile, SkinLayerValue[] layers, Identifier fallbackSkin,boolean head, @Nullable Runnable callback) {
 		super(fallbackSkin);
 		this.cacheFile = cacheFile;
 		this.layers = layers;
+		this.head=head;
 		this.loadedCallback = callback;
 	}
 
@@ -131,7 +133,8 @@ public class LayerBasedPlayerSkinTexture extends ResourceTexture {
 
 		try {
 			image = SkinStitcher.createSkin(this.layers);
-
+			if(head)
+				image=SkinStitcher.convertToHead(image);
 		} catch (Exception var4) {
 			LOGGER.warn("Error while creating the skin texture", var4);
 		}

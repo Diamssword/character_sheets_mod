@@ -87,7 +87,7 @@ public class BodyPartButtonComponent extends ButtonWidget implements  Scrollable
 			path=texture.substring(i+1);
 		}
 		if(part.image.id().equals("clear"))
-			this.partIcon=new Identifier(id,"textures/gui/clear.png");
+			this.partIcon=Characters.asRessource("textures/gui/clear.png");
 		else
 			this.partIcon=new Identifier(id,"textures/bodyparts/icons/"+path+".png");
 		this.isEquipped=this.isSelectedFn.apply(part);
