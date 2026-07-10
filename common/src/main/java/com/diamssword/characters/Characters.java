@@ -39,7 +39,7 @@ public final class Characters {
         ReloadListenerRegistry.register(ResourceType.SERVER_DATA,ClassesLoader.instance, ClassesLoader.instance.getId());
 		ReloadListenerRegistry.register(ResourceType.SERVER_DATA,BodyPartsLoader.instance, BodyPartsLoader.instance.getId());
         ClassesLoader.initEvents();
-        CharactersApi.instance=new CharactersApiImpl();
+        CharactersApi.setReady(new CharactersApiImpl());
 
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_APPEARANCE, (p)-> ComponentManager.getPlayerDatas(p).getAppearence(), PlayerAppearance::serializer,PlayerAppearance::unserializer);
         PlayerCharacters.attachComponentToCharacters(CharactersApi.CHARACTER_ATTACHED_COMPONENT_INVENTORY, InventorySaver::new,InventorySaver::serializer,InventorySaver::unserializer);
