@@ -67,7 +67,9 @@ public abstract class StatsRole {
 	public void onLevelChange(PlayerEntity pl, int level) {
 		changeModifiers(pl, level);
 	}
-
+	public void onPlayerRespawn(PlayerEntity pl, int level) {
+		changeModifiers(pl, level);
+	}
 	private void changeModifiers(PlayerEntity pl, int level) {
 		for (var set : map.entrySet()) {
 			set.getValue().clearModifier(pl);

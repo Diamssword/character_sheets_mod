@@ -78,9 +78,6 @@ public class CosmeticsPackets {
 					allowedLayers.addAll(List.of(allowed.allowedLayers()));
 				var cha = ComponentManager.getPlayerCharacter(ctx.player());
 				var result = mixandMatchLayers(ctx.player(), msg.layers,allowedLayers);
-				for(SkinLayerValue skinLayerValue : result) {
-					System.out.println(skinLayerValue);
-				}
 				cha.getCurrentCharacter().appearance.layers = result;
 				ComponentManager.getPlayerDatas(ctx.player()).getAppearence().getSkinDatas().layers = result;
 				SkinServerCache.get(ctx.player().getServer()).setActiveCharacter(ctx.player(), cha.getCurrentCharacter().stats.firstname + " " + cha.getCurrentCharacter().stats.lastname, cha.getCurrentCharacter().appearance.layers, cha.getCurrentCharacter().appearance.slim);

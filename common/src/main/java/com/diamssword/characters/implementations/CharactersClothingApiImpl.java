@@ -63,7 +63,7 @@ public class CharactersClothingApiImpl extends CharacterClothingApi {
 
 	@Override
 	public List<Cloth> getClothsIn(String[] collections,String[] levels, LayerDef... layers) {
-		return ClothingLoader.instance.getClothsIn(collections,levels,layers);
+		return ClothingLoader.instance.getClothsIn(levels,collections,layers);
 	}
 
 	@Override

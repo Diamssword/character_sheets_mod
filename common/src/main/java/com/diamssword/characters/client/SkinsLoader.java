@@ -1,5 +1,6 @@
 package com.diamssword.characters.client;
 
+import com.diamssword.characters.api.IPlayerAppearanceProvider;
 import com.diamssword.characters.api.PlayerSkinInfos;
 import com.diamssword.characters.api.http.SkinLayerValue;
 import com.diamssword.characters.mixins.PlayerSkinProviderAccessor;
@@ -15,6 +16,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
@@ -93,7 +96,26 @@ public class SkinsLoader {
 		};
 		Util.getMainWorkerExecutor().execute(runnable);
 	}
+	public <T extends LivingEntity & IPlayerAppearanceProvider> void loadSkin(T entity, SkinTextureAvailableCallback callback) {
+		Runnable runnable = () -> {
+			MinecraftClient.getInstance().execute(() -> {
+				RenderSystem.recordRenderCall(() -> {
+					var dt=entity.getSkinDatas();
+					if(dt !=null)
+					{
+						if (dt.layers !=null && dt.layers.length>0) {
+							var map1 = new HashMap<String, String>();
+							map1.put("slim", Boolean.toString(dt.slim));
+							this.loadSkin(new LayerBasedMinecraftProfileTexture(dt.layers, map1), callback, false,false);
 
+						}
+					}
+
+				});
+			});
+		};
+		Util.getMainWorkerExecutor().execute(runnable);
+	}
 	public void loadSkin(GameProfile profile, SkinTextureAvailableCallback callback) {
 		this.loadSkin(profile.getId(),false,callback);
 	}

@@ -4,6 +4,7 @@ import com.diamssword.characters.api.*;
 import com.diamssword.characters.api.appearence.Cloth;
 import com.diamssword.characters.api.appearence.IPlayerAppearance;
 import com.diamssword.characters.api.appearence.LayerDef;
+import com.diamssword.characters.api.clothing.ClothData;
 import com.diamssword.characters.api.http.ApiCharacterValues;
 import com.diamssword.characters.api.http.ApiSkinValues;
 import com.diamssword.characters.api.http.SkinLayerValue;
@@ -107,8 +108,6 @@ public class PlayerAppearance implements IPlayerAppearance {
 		return res;
 	}
 
-	public record ClothData(Identifier texture, boolean needColor, int color) {
-	}
 	private void fillForcedLayers()
 	{
 		ClothingLoader.instance.getLayers().values().stream().filter(LayerDef::isForced).forEach(la->{

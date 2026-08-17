@@ -93,7 +93,7 @@ public class PlayerStats implements IPlayerStats {
 
 	public void onPlayerRespawn() {
 		for (var item : stats.entrySet()) {
-			ClassesLoader.onLevelChange(player, item.getKey(), item.getValue());
+			ClassesLoader.onPlayerRespawn(player, item.getKey(), item.getValue());
 		}
 	}
 

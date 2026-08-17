@@ -73,7 +73,6 @@ public class PlayerCharacters implements ICharacterSheets {
 			if(oldChar!=null)
 				storedDatas.put(oldChar,oldCharSave);
 			ComponentManager.syncPlayerCharacter(player);
-
 			SkinServerCache.get(player.getServer()).setActiveCharacter(player, currentCharacter.stats.firstname + " " + currentCharacter.stats.lastname, currentCharacter.appearance.layers,currentCharacter.appearance.slim);
 		}
 	}

@@ -65,12 +65,16 @@ public class ClassesLoader implements SynchronousResourceReloader {
 
 	}
 
+	public static void onPlayerRespawn(PlayerEntity pl, String role, int level) {
+		getRole(role).ifPresent(r -> {
+			r.onPlayerRespawn(pl, level);
+		});
+	}
 	public static void onLevelChange(PlayerEntity pl, String role, int level) {
 		getRole(role).ifPresent(r -> {
 			r.onLevelChange(pl, level);
 		});
 	}
-
 	public int getXpCostForLevel(int palier) {
 		var res = 0;
 		var last = 0;

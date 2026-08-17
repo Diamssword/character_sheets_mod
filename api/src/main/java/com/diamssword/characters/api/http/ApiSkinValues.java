@@ -27,9 +27,9 @@ public class ApiSkinValues {
 
 	public ApiSkinValues fromNBT(NbtCompound tag) {
 
-		if(tag.contains("additional"))
+		if(tag.contains("layers"))
 		{
-			var a=tag.getList("additional", NbtElement.COMPOUND_TYPE);
+			var a=tag.getList("layers", NbtElement.COMPOUND_TYPE);
 			layers=new SkinLayerValue[a.size()];
 			for(int i = 0; i < a.size(); i++) {
 				layers[i]=new SkinLayerValue().fromNBT(a.getCompound(i));

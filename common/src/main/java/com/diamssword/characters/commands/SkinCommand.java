@@ -102,6 +102,7 @@ public class SkinCommand {
 					return 1;
 				}
 				chs.switchCharacter(sub);
+
 				if(ComponentManager.getPlayerDatas(entity).getAppearence() instanceof PlayerAppearance ap)
 					ap.refreshSkinData();
 				Channels.MAIN.serverHandle(ctx.getSource().getServer()).send(new CosmeticsPackets.RefreshSkin(entity.getGameProfile().getId()));
